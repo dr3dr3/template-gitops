@@ -53,7 +53,7 @@ jobs:
         id: repo-exists
         run: .github/actions-scripts/repo-check-exists.mjs
         env:
-          GHA_TOKEN: ${{ secrets.SETUP_PAT }}
+          GHA_TOKEN: ${{ secrets.GITOPS_PAT }}
           REPO_OWNER: ${{ github.repository_owner	 }}
           REPO_NAME: ${{ matrix.repo }}
 

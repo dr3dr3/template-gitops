@@ -1,0 +1,26 @@
+repositories:
+  solutions:
+    - name: start
+      repo: temp-slidev
+      repo-description: 'Micro-frontend for slides using Sli.dev'
+      repo-template: 'template-slidev'
+      route: root
+      status: active
+  pipeline:
+    - name: pipeline
+      repo: temp-pipeline
+      repo-description: 'Continuous Delivery Pipeline using GitHub Action Workflows'
+      repo-template: 'template-pipeline'
+    - name: gitops
+      repo: temp-gitops
+      repo-description: 'Configuration Management and IaC using GitHub Action Workflows'
+      repo-template: 'template-gitops'
+  deployment:
+    - name: stage
+      repo: temp-stg
+      repo-description: 'Repository for running deployments to Stage'
+      repo-template: 'template-deployment'
+    - name: production
+      repo: temp-prd
+      repo-description: 'Repository for running deployments to Production'
+      repo-template: 'template-deployment'

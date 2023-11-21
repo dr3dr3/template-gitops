@@ -47,14 +47,14 @@ jobs:
       #   id: repo-exists
       #   run: .github/actions-scripts/repo-check-exists.mjs
       #   env:
-      #     GHA_TOKEN: ${{ secrets.SETUP_PAT }}
+      #     GHA_TOKEN: ${{ secrets.GITOPS_PAT }}
       #     REPO_OWNER: ${{ github.repository_owner	 }}
       #     REPO_NAME: ${{ matrix.repo }}
 
       - name: Create variables
         run: .github/actions-scripts/repo-create-variable.mjs
         env:
-          GHA_TOKEN: ${{ secrets.SETUP_PAT }}
+          GHA_TOKEN: ${{ secrets.GITOPS_PAT }}
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ matrix.repo }}
           VAR_NAME: ${{ matrix.name }}

@@ -61,7 +61,7 @@ jobs:
         id: template-exists
         run: .github/actions-scripts/repo-check-exists.mjs
         env:
-          GHA_TOKEN: ${{ secrets.SETUP_PAT }}
+          GHA_TOKEN: ${{ secrets.GITOPS_PAT }}
           REPO_OWNER: 'dr3dr3'
           REPO_NAME: ${{ matrix.repo-template }}
 
@@ -69,7 +69,7 @@ jobs:
         if: ${{ steps.repo-exists.outputs.result != 'true'  && steps.template-exists.outputs.result == 'true' }}
         run: .github/actions-scripts/repo-create-using-template.mjs
         env:
-          GHA_TOKEN: ${{ secrets.SETUP_PAT }}
+          GHA_TOKEN: ${{ secrets.GITOPS_PAT }}
           REPO_TEMPLATE: ${{ matrix.repo-template	 }}
           REPO_OWNER: ${{ github.repository_owner	 }}
           REPO_NAME: ${{ matrix.repo }}

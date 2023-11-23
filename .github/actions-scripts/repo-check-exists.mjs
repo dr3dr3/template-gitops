@@ -15,7 +15,7 @@ async function checkUsersRepos() {
     const { data:repoList } = await octokit.rest.repos.listForUser({
         username: process.env.REPO_OWNER,
         type: 'owner'
-        });
+    });
     const repoListFiltered = repoList.filter( repoName => repoName.name === process.env.REPO_NAME );
     const repoExists = (repoListFiltered.length == 1 ) ? true : false
     console.log( repoListFiltered );
@@ -26,3 +26,8 @@ async function main() {
     const result = await checkUsersRepos();
     setOutput("result", result);
 };
+
+/*
+Test locally:
+GHA_TOKEN=<token> REPO_OWNER=dr3dr3 REPO_NAME=template-slidev node .github/actions-scripts/repo-check-exists.mjs
+*/

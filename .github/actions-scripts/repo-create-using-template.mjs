@@ -22,10 +22,15 @@ async function createRepoUsingTemplate() {
         description: process.env.REPO_DESC
         });
     console.log( repoCreated );
-    return repoCreated;
+    return true;
 }
 
 async function main() {
     const result = await createRepoUsingTemplate();
     setOutput("result", result);
 };
+
+/*
+Test locally:
+GHA_TOKEN=<token> REPO_OWNER=dr3dr3 REPO_NAME=template-slidev VAR_NAME=SOLUTION node .github/actions-scripts/repo-vars-check-exists.mjs
+*/

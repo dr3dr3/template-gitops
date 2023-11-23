@@ -43,15 +43,15 @@ jobs:
       - name: Install Node dependencies
         run: npm install --no-save @actions/core @actions/github
 
-      # - name: Check variables exists
-      #   id: repo-exists
-      #   run: .github/actions-scripts/repo-check-exists.mjs
-      #   env:
-      #     GHA_TOKEN: ${{ secrets.GITOPS_PAT }}
-      #     REPO_OWNER: ${{ github.repository_owner	 }}
-      #     REPO_NAME: ${{ matrix.repo }}
+      - name: Check variable exists
+        id: var-exists
+        run: ./github/actions-scripts/repo-vars-check-exists.mjs
+        env:
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ matrix.repo }}
 
-      - name: Create variables
+      - name: Create variable
+        if: ${{ steps.var-exists.outputs.result != 'true' }}
         run: .github/actions-scripts/repo-create-variable.mjs
         env:
           GHA_TOKEN: ${{ secrets.GITOPS_PAT }}
@@ -60,5 +60,15 @@ jobs:
           VAR_NAME: ${{ matrix.name }}
           VAR_VAL: ${{ matrix.value }}
 
+      - name: Update variable
+        if: ${{ steps.var-exists.outputs.result == 'true' }}
+        run: .github/actions-scripts/repo-create-update.mjs
+        env:
+          GHA_TOKEN: ${{ secrets.GITOPS_PAT }}
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ matrix.repo }}
+          VAR_NAME: ${{ matrix.name }}
+          VAR_VAL: ${{ matrix.value }}
+
       - name: GHA Summary
-        run: echo "Variable ${{ matrix.name }} created/updated" >> $GITHUB_STEP_SUMMARY
+        run: echo "Variable ${{ matrix.name }} created / updated" >> $GITHUB_STEP_SUMMARY

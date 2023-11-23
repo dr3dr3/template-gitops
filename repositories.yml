@@ -1,13 +1,13 @@
 repositories:
   solutions:
-    - name: slides
-      repo: temp-slidev
+    - name: start
+      repo: template-slidev
       repo-description: 'Micro-frontend for slides using Sli.dev'
       repo-template: 'template-slidev'
       route: root
       status: active
-    - name: start
-      repo: temp-slidev
+    - name: slides
+      repo: template-slidev
       repo-description: 'Micro-frontend for slides using Sli.dev'
       repo-template: 'template-slidev'
       route: slides

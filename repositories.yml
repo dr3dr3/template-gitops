@@ -10,7 +10,7 @@ repositories:
       repo: template-slidev
       repo-description: 'Micro-frontend for slides using Sli.dev'
       repo-template: 'template-slidev'
-      route: slides
+      route: slidev
       status: active
     - name: feature-flags
       repo: temp-featurevisor

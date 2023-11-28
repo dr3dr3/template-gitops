@@ -1,46 +1,105 @@
 repo-variables:
+
   - name: SOLUTION
-    repo: temp-slidev
-    value: SLIDEV
+    repo: devopsdemo-landing
+    value: nextjs
+  - name: SOLN_DIR
+    repo: devopsdemo-landing
+    value: landing
   - name: SITE_URL
-    repo: temp-slidev
+    repo: devopsdemo-landing
+    value: https://ci-landing.andredreyer.com
+  - name: DEPLOY_CI
+    repo: devopsdemo-landing
+    value: GITHUB-PAGES
+  - name: REPO_GITOPS
+    repo: devopsdemo-landing
+    value: dr3dr3/devopsdemo-gitops
+  - name: REPO_STAGE
+    repo: devopsdemo-landing
+    value: dr3dr3/devopsdemo-stg
+  - name: REPO_PROD
+    repo: devopsdemo-landing
+    value: dr3dr3/devopsdemo-prd
+  - name: CHECK_LINKS
+    repo: devopsdemo-landing
+    value: false
+
+  - name: SOLUTION
+    repo: devopsdemo-slides
+    value: revealmd
+  - name: SOLN_DIR
+    repo: devopsdemo-slides
+    value: revealmd
+  - name: SITE_URL
+    repo: devopsdemo-slides
     value: https://ci-slides.andredreyer.com
+  - name: DEPLOY_CI
+    repo: devopsdemo-slides
+    value: GITHUB-PAGES
+  - name: REPO_GITOPS
+    repo: devopsdemo-slides
+    value: dr3dr3/devopsdemo-gitops
+  - name: REPO_STAGE
+    repo: devopsdemo-slides
+    value: dr3dr3/devopsdemo-stg
+  - name: REPO_PROD
+    repo: devopsdemo-slides
+    value: dr3dr3/devopsdemo-prd
+  - name: CHECK_LINKS
+    repo: devopsdemo-slides
+    value: false
+
+  - name: SOLUTION
+    repo: devopsdemo-flags
+    value: featurevisor
+  - name: SOLN_DIR
+    repo: devopsdemo-flags
+    value: featureflags
   - name: SITE_URL
-    repo: temp-stg
+    repo: devopsdemo-flags
+    value: https://ci-flags.andredreyer.com
+  - name: DEPLOY_CI
+    repo: devopsdemo-flags
+    value: GITHUB-PAGES
+  - name: REPO_GITOPS
+    repo: devopsdemo-flags
+    value: dr3dr3/devopsdemo-gitops
+  - name: REPO_STAGE
+    repo: devopsdemo-flags
+    value: dr3dr3/devopsdemo-stg
+  - name: REPO_PROD
+    repo: devopsdemo-flags
+    value: dr3dr3/devopsdemo-prd
+  - name: CHECK_LINKS
+    repo: devopsdemo-flags
+    value: false
+
+  - name: SITE_URL
+    repo: devopsdemo-stg
     value: https://stg.andredreyer.com
+  - name: CHECK_LINKS
+    repo: devopsdemo-stg
+    value: true
+  - name: REPO_GITOPS
+    repo: devopsdemo-stg
+    value: dr3dr3/devopsdemo-gitops
+  - name: ENVIRONMENT
+    repo: devopsdemo-stg
+    value: stg
+
   - name: SITE_URL
-    repo: temp-prd
+    repo: devopsdemo-prd
     value: https://www.andredreyer.com
   - name: CHECK_LINKS
-    repo: temp-slidev
-    value: false
-  - name: CHECK_LINKS
-    repo: temp-stg
+    repo: devopsdemo-prd
     value: true
-  - name: CHECK_LINKS
-    repo: temp-prd
-    value: true
-  - name: DEPLOY_CI
-    repo: temp-slidev
-    value: GITHUB-PAGES
   - name: REPO_GITOPS
-    repo: temp-stg
-    value: dr3dr3/temp-gitops
-  - name: REPO_GITOPS
-    repo: temp-prd
-    value: dr3dr3/temp-gitops
-  - name: REPO_STAGE
-    repo: temp-slidev
-    value: dr3dr3/temp-stg
-  - name: REPO_PROD
-    repo: temp-slidev
-    value: dr3dr3/temp-prd
+    repo: devopsdemo-prd
+    value: dr3dr3/devopsdemo-gitops
   - name: DEPLOY_BLUE
-    repo: temp-prd
+    repo: devopsdemo-prd
     value: GITHUB-PAGES
   - name: ENVIRONMENT
-    repo: temp-stg
-    value: stg
-  - name: ENVIRONMENT
-    repo: temp-prd
+    repo: devopsdemo-prd
     value: prd

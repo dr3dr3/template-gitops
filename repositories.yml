@@ -1,42 +1,42 @@
 repositories:
   solutions:
     - name: start
-      repo: template-slidev
-      repo-description: 'Micro-frontend for slides using Sli.dev'
-      repo-template: 'template-slidev'
+      repo: devopsdemo-landing
+      repo-description: 'Micro-frontend for landing page'
+      repo-template: template-nextjs-landing
       route: root
       status: active
     - name: slides
-      repo: template-slidev
+      repo: devopsdemo-slides
       repo-description: 'Micro-frontend for slides using Sli.dev'
-      repo-template: 'template-slidev'
-      route: slidev
+      repo-template: template-revealmd
+      route: slides
       status: active
     - name: feature-flags
-      repo: temp-featurevisor
+      repo: devopsdemo-featurevisor
       repo-description: 'Feature flag service'
-      repo-template: 'template-featurevisor'
+      repo-template: template-featurevisor
       route: flags
-      status: ci-only
+      status: active
   pipeline:
     - name: pipeline
-      repo: temp-pipeline
+      repo: devopsdemo-pipeline
       repo-description: 'Continuous Delivery Pipeline using GitHub Action Workflows'
-      repo-template: 'template-pipeline'
+      repo-template: template-pipeline
       status: active
     - name: gitops
-      repo: temp-gitops
+      repo: devopsdemo-gitops
       repo-description: 'Configuration Management and IaC using GitHub Action Workflows'
-      repo-template: 'template-gitops'
-      status: skip
+      repo-template: template-gitops
+      status: active
   deployment:
     - name: stage
-      repo: temp-stg
+      repo: devopsdemo-stg
       repo-description: 'Repository for running deployments to Stage'
-      repo-template: 'template-deployment'
+      repo-template: template-deployment
       status: active
     - name: production
-      repo: temp-prd
+      repo: devopsdemo-prd
       repo-description: 'Repository for running deployments to Production'
-      repo-template: 'template-deployment'
+      repo-template: template-deployment
       status: active

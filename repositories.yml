@@ -1,19 +1,19 @@
 repositories:
   solutions:
     - name: start
-      repo: devopsdemo-landing
+      repo: template-nextjs-landing
       repo-description: 'Micro-frontend for landing page'
       repo-template: template-nextjs-landing
       route: root
       status: active
     - name: slides
-      repo: devopsdemo-slides
+      repo: template-revealmd
       repo-description: 'Micro-frontend for slides using Sli.dev'
       repo-template: template-revealmd
       route: slides
       status: active
     - name: feature-flags
-      repo: devopsdemo-featurevisor
+      repo: template-featurevisor
       repo-description: 'Feature flag service'
       repo-template: template-featurevisor
       route: flags

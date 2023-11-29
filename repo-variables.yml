@@ -6,6 +6,9 @@ repo-variables:
   - name: SOLN_DIR
     repo: devopsdemo-landing
     value: landing
+  - name: OUTPUT_DIR
+    repo: devopsdemo-landing
+    value: out
   - name: SITE_URL
     repo: devopsdemo-landing
     value: https://ci-landing.andredreyer.com
@@ -31,6 +34,9 @@ repo-variables:
   - name: SOLN_DIR
     repo: devopsdemo-slides
     value: revealmd
+  - name: OUTPUT_DIR
+    repo: devopsdemo-slides
+    value: out
   - name: SITE_URL
     repo: devopsdemo-slides
     value: https://ci-slides.andredreyer.com
@@ -56,6 +62,9 @@ repo-variables:
   - name: SOLN_DIR
     repo: devopsdemo-flags
     value: featureflags
+  - name: OUTPUT_DIR
+    repo: devopsdemo-flags
+    value: out
   - name: SITE_URL
     repo: devopsdemo-flags
     value: https://ci-flags.andredreyer.com

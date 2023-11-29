@@ -10,7 +10,7 @@ repositories:
       repo: template-revealmd
       repo-description: 'Micro-frontend for slides using Sli.dev'
       repo-template: template-revealmd
-      route: slides
+      route: present
       status: active
     - name: feature-flags
       repo: template-featurevisor

@@ -5,10 +5,11 @@ repositories:
       repo-description: 'Micro-frontend for landing page'
       repo-template: template-nextjs-landing
       route: root
+      github-pages: true
       status: active
     - name: slides
       repo: template-revealmd
-      repo-description: 'Micro-frontend for slides using Sli.dev'
+      repo-description: 'Micro-frontend for slides using Reveal-MD'
       repo-template: template-revealmd
       route: present
       status: active
@@ -17,26 +18,31 @@ repositories:
       repo-description: 'Feature flag service'
       repo-template: template-featurevisor
       route: flags
+      github-pages: true
       status: active
   pipeline:
     - name: pipeline
       repo: devopsdemo-pipeline
       repo-description: 'Continuous Delivery Pipeline using GitHub Action Workflows'
       repo-template: template-pipeline
+      github-pages: false
       status: active
     - name: gitops
       repo: devopsdemo-gitops
       repo-description: 'Configuration Management and IaC using GitHub Action Workflows'
       repo-template: template-gitops
+      github-pages: false
       status: active
   deployment:
     - name: stage
       repo: devopsdemo-stg
       repo-description: 'Repository for running deployments to Stage'
       repo-template: template-deployment
+      github-pages: true
       status: active
     - name: production
       repo: devopsdemo-prd
       repo-description: 'Repository for running deployments to Production'
       repo-template: template-deployment
+      github-pages: true
       status: active

@@ -40,14 +40,6 @@ async function updateRepo() {
     });
     console.log( 'repoUpdates status: ' + repoUpdates );
 
-    const { status:githubPages } = await octokit.rest.repos.updateInformationAboutPagesSite({
-        owner: process.env.REPO_OWNER,
-        repo: process.env.REPO_NAME,
-        build_type: "workflow",
-        cname: null,
-    });
-    console.log( 'updateInformationAboutPagesSite status: ' + githubPages );
-
     return true;
 }
 

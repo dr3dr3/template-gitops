@@ -9,8 +9,6 @@ jobs:
   get-config:
     name: Repositories GitOps
     runs-on: ubuntu-latest
-    #env:
-    #  GH_TOKEN: ${{ secrets.GITOPS_REPOS }}
     outputs:
       matrix-vars: ${{ steps.repos.outputs.VARIABLES }}
     steps:
@@ -21,7 +19,7 @@ jobs:
       - name: Get Solution Repo's
         id: repos
         run: |
-          vars=$(yq '{"include": .repo-variables }' repo-variables.yml -o=json | jq -c)
+          vars=$(yq '{"include": .repo-variables }' repo/repo-variables.yml -o=json | jq -c)
           echo $vars
           echo "VARIABLES=$vars" >> $GITHUB_OUTPUT
 
@@ -41,7 +39,7 @@ jobs:
         uses: actions/setup-node@v4
 
       - name: Install Node dependencies
-        run: npm install --no-save @actions/core @actions/github
+        run: npm install
 
       - name: Check variable exists
         id: var-exists

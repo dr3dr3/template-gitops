@@ -25,7 +25,7 @@ jobs:
       - name: Get Solution Repo's
         id: repos
         run: |
-          repos=$(yq '{"include": .repositories.solutions + .repositories.pipeline + .repositories.deployment }' repositories.yml -o=json | jq -c)
+          repos=$(yq '{"include": .repositories.solutions + .repositories.pipeline + .repositories.deployment }' repo/repositories.yml -o=json | jq -c)
           echo $repos
           echo "SOLUTIONS=$repos" >> $GITHUB_OUTPUT
 
@@ -47,7 +47,7 @@ jobs:
         uses: actions/setup-node@v4
 
       - name: Install Node dependencies
-        run: npm install --no-save @actions/core @actions/github
+        run: npm install
 
       - name: Check repo exists
         id: repo-exists
@@ -78,6 +78,14 @@ jobs:
 
       - name: Update repo
         run: .github/actions-scripts/repo-update.mjs
+        env:
+          GHA_TOKEN: ${{ secrets.GITOPS_PAT }}
+          REPO_OWNER: ${{ github.repository_owner	 }}
+          REPO_NAME: ${{ matrix.repo }}
+
+      - name: Update repo pages
+        if: ${{ matrix.github-pages }}
+        run: .github/actions-scripts/repo-update-pages.mjs
         env:
           GHA_TOKEN: ${{ secrets.GITOPS_PAT }}
           REPO_OWNER: ${{ github.repository_owner	 }}

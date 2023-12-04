@@ -1,0 +1,22 @@
+{
+  "name": "template-gitops",
+  "version": "1.0.0",
+  "description": "GitOps for DevOps Demo",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dr3dr3/temp-gitops.git"
+  },
+  "author": "André Dreyer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dr3dr3/temp-gitops/issues"
+  },
+  "homepage": "https://github.com/dr3dr3/temp-gitops#readme",
+  "dependencies": {
+    "@actions/core": "^1.10.1",
+    "@actions/github": "^6.0.0"
+  }
+}

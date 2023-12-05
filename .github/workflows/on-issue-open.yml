@@ -3,7 +3,7 @@ run-name: Issue Opened Workflows ( ${{ github.event_name }} run by ${{ github.ac
 
 on:
   issues:
-    types: [opened, reopened]
+    types: [opened, reopened, edited]
 
 permissions:
   contents: none
@@ -40,12 +40,16 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           comment="
-          ### Checkout SLFB in your Dev environment
+          ## Branch Created
+          
+          Checkout SLFB in your Dev environment
 
           \`\`\`
           git fetch origin
           git checkout -b ${{ steps.slfb-name.outputs.SLFB }}
           \`\`\`
+
+          ![Ready to Code](https://octodex.github.com/images/codercat.png)
 
           "
           echo $comment

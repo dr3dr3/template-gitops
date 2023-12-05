@@ -1,5 +1,5 @@
 name: REPOSITORY-VARIABLE-CHANGES
-run-name: Event ${{ github.event_name }} run by ${{ github.actor }} 
+run-name: Create/update Repo Variables ( ${{ github.event_name }} run by ${{ github.actor }} )
 
 on:
   workflow_dispatch:
@@ -12,6 +12,12 @@ jobs:
     outputs:
       matrix-vars: ${{ steps.repos.outputs.VARIABLES }}
     steps:
+
+      - name: Check GITOPS_PAT secret exists
+        env:
+          gitops-secret: ${{ secrets.GITOPS_PAT }}
+        if: ${{ env.gitops-secret == '' }}
+        run: echo "echo the secret \"GITOPS_PAT\" has not been made; echo please go to \"settings \> secrets \> actions \> repository secrets\" to create it"
 
       - name: Checkout GitOps
         uses: actions/checkout@v3

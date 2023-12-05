@@ -1,0 +1,28 @@
+name: STATUS-CHECKS
+run-name: Status Checks ( ${{ github.event_name }} run by ${{ github.actor }} )
+
+on:
+  pull_request:
+    types: [ready_for_review]
+
+permissions:
+  contents: none
+
+jobs:
+
+  schema-validation:
+    name: Schema validation
+    runs-on: ubuntu-latest
+    permissions:
+      contents: none
+
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+
+      - name: Install Node dependencies
+        run: npm install

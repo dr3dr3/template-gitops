@@ -1,5 +1,5 @@
 name: REPOSITORY-CHANGES
-run-name: Event ${{ github.event_name }} run by ${{ github.actor }} 
+run-name: Create/update Repositories ( ${{ github.event_name }} run by ${{ github.actor }} )
 
 on:
   workflow_dispatch:
@@ -18,6 +18,12 @@ jobs:
       matrix-repos: ${{ steps.repos.outputs.REPOS }}
 
     steps:
+
+      - name: Check GITOPS_PAT secret exists
+        env:
+          gitops-secret: ${{ secrets.GITOPS_PAT }}
+        if: ${{ env.gitops-secret == '' }}
+        run: echo "echo the secret \"GITOPS_PAT\" has not been made; echo please go to \"settings \> secrets \> actions \> repository secrets\" to create it"
 
       - name: Checkout
         uses: actions/checkout@v3

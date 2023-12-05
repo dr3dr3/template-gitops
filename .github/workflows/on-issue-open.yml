@@ -1,0 +1,56 @@
+name: ON-ISSUE-OPEN
+run-name: Issue Opened Workflows ( ${{ github.event_name }} run by ${{ github.actor }} )
+
+on:
+  issues:
+    types: [opened, reopened]
+
+permissions:
+  contents: none
+
+jobs:
+
+  slfb:
+    name: Setup Branch for SLFB
+    if: ${{ contains( github.event.issue.title , '[SLFB]' ) }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+    steps:
+
+      - name: Checkout Main Branch
+        uses: actions/checkout@v3
+
+      - name: Set SLFB Name
+        id: slfb-name
+        run: |
+          name=$(echo ${{ github.event.issue.title }} | tr " " "-")
+          slfb=$(echo "${{github.event.issue.number}}-${name}" )
+          echo "${slfb}"
+          echo "SLFB=$slfb" >> $GITHUB_OUTPUT
+
+      - name: Setup SLFB
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue develop ${{github.event.issue.number}} --base main --name "${{ steps.slfb-name.outputs.SLFB }}" || gh issue comment ${{github.event.issue.number}} --body "GitHub Action - Short-Lived Feature Branch ( ${{ steps.slfb-name.outputs.SLFB }} ) already exists"
+
+      - name: Comment for Branch Checkout
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          comment="
+          ### Checkout SLFB in your Dev environment
+
+          \`\`\`
+          git fetch origin
+          git checkout -b ${{ steps.slfb-name.outputs.SLFB }}
+          \`\`\`
+
+          "
+          echo $comment
+          gh issue comment ${{github.event.issue.number}} --body "$comment"
+
+      - name: Message SLFB
+        run: echo "### Short-Lived Feature Branch (SLFB) Created :thumbsup:" >> $GITHUB_STEP_SUMMARY
+

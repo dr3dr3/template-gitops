@@ -2,48 +2,48 @@ repositories:
   solutions:
     - name: start
       repo: template-nextjs-landing
-      repo-description: 'Micro-frontend for landing page'
-      repo-template: template-nextjs-landing
+      repoDescription: 'Micro-frontend for landing page'
+      repoTemplate: template-nextjs-landing
       route: root
-      github-pages: true
+      githubPages: true
       status: active
     - name: slides
       repo: template-revealmd
-      repo-description: 'Micro-frontend for slides using Reveal-MD'
-      repo-template: template-revealmd
+      repoDescription: 'Micro-frontend for slides using Reveal-MD'
+      repoTemplate: template-revealmd
       route: present
-      github-pages: true
+      githubPages: true
       status: active
     - name: feature-flags
       repo: template-featurevisor
-      repo-description: 'Feature flag service'
-      repo-template: template-featurevisor
+      repoDescription: 'Feature flag service'
+      repoTemplate: template-featurevisor
       route: flags
-      github-pages: true
+      githubPages: true
       status: active
   pipeline:
     - name: pipeline
       repo: devopsdemo-pipeline
-      repo-description: 'Continuous Delivery Pipeline using GitHub Action Workflows'
-      repo-template: template-pipeline
-      github-pages: false
+      repoDescription: 'Continuous Delivery Pipeline using GitHub Action Workflows'
+      repoTemplate: template-pipeline
+      githubPages: false
       status: active
     - name: gitops
       repo: devopsdemo-gitops
-      repo-description: 'Configuration Management and IaC using GitHub Action Workflows'
-      repo-template: template-gitops
-      github-pages: false
+      repoDescription: 'Configuration Management and IaC using GitHub Action Workflows'
+      repoTemplate: template-gitops
+      githubPages: false
       status: active
   deployment:
     - name: stage
       repo: devopsdemo-stg
-      repo-description: 'Repository for running deployments to Stage'
-      repo-template: template-deployment
-      github-pages: true
+      repoDescription: 'Repository for running deployments to Stage'
+      repoTemplate: template-deployment
+      githubPages: true
       status: active
     - name: production
       repo: devopsdemo-prd
-      repo-description: 'Repository for running deployments to Production'
-      repo-template: template-deployment
-      github-pages: true
+      repoDescription: 'Repository for running deployments to Production'
+      repoTemplate: template-deployment
+      githubPages: true
       status: active

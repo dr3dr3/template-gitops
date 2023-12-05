@@ -26,7 +26,7 @@ repo-variables:
     value: dr3dr3/devopsdemo-prd
   - name: CHECK_LINKS
     repo: devopsdemo-landing
-    value: false
+    value: 'false'
 
   - name: SOLUTION
     repo: devopsdemo-slides
@@ -54,7 +54,7 @@ repo-variables:
     value: dr3dr3/devopsdemo-prd
   - name: CHECK_LINKS
     repo: devopsdemo-slides
-    value: false
+    value: 'false'
 
   - name: SOLUTION
     repo: devopsdemo-flags
@@ -82,14 +82,14 @@ repo-variables:
     value: dr3dr3/devopsdemo-prd
   - name: CHECK_LINKS
     repo: devopsdemo-flags
-    value: false
+    value: 'false'
 
   - name: SITE_URL
     repo: devopsdemo-stg
     value: https://stg.andredreyer.com
   - name: CHECK_LINKS
     repo: devopsdemo-stg
-    value: true
+    value: 'true'
   - name: REPO_GITOPS
     repo: devopsdemo-stg
     value: dr3dr3/devopsdemo-gitops
@@ -102,7 +102,7 @@ repo-variables:
     value: https://www.andredreyer.com
   - name: CHECK_LINKS
     repo: devopsdemo-prd
-    value: true
+    value: 'true'
   - name: REPO_GITOPS
     repo: devopsdemo-prd
     value: dr3dr3/devopsdemo-gitops

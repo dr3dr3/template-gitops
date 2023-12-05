@@ -9,7 +9,6 @@ console.assert(process.env.REPO_NAME, "REPO_NAME not present");
 console.assert(process.env.VAR_NAME, "VAR_NAME not present");
 
 const octokit = getOctokit(process.env.GHA_TOKEN);
-const core = require('@actions/core');
 
 main();
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { getOctokit } from "@actions/github";
-import { setOutput } from "@actions/core";
+import { setOutput, setFailed } from "@actions/core";
 
 console.assert(process.env.GHA_TOKEN, "GHA_TOKEN not present");
 console.assert(process.env.REPO_OWNER, "REPO_OWNER not present");
@@ -10,7 +10,6 @@ console.assert(process.env.REPO_TEMPLATE, "REPO_TEMPLATE not present");
 console.assert(process.env.REPO_DESC, "REPO_DESC not present");
 
 const octokit = getOctokit(process.env.GHA_TOKEN);
-const core = require('@actions/core');
 
 main();
 
@@ -37,7 +36,7 @@ async function createRepoUsingTemplate() {
             });
         console.log( repoCreated );
     } catch (err) {
-        core.setFailed(err.message);
+        setFailed(err.message);
         console.error("Error!!! " + err);
     };
     

@@ -46,7 +46,6 @@ async function updateRepo() {
             allow_update_branch: false,
             squash_merge_commit_title: "PR_TITLE",
             squash_merge_commit_message: "PR_BODY",
-            allow_forking: false,
         });
         console.log( 'repoUpdates status: ' + repoUpdates );
     } catch (err) {

@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { getOctokit } from "@actions/github";
-import { setOutput } from "@actions/core";
+import { setOutput, setFailed } from "@actions/core";
 
 console.assert(process.env.GHA_TOKEN, "GHA_TOKEN not present");
 console.assert(process.env.REPO_OWNER, "REPO_OWNER not present");
@@ -26,7 +26,7 @@ async function updateRepoPages() {
         if (err.message === 'Not Found') {
             console.error("Pages not setup yet");
         } else {
-            core.setFailed(err.message);
+            setFailed(err.message);
             console.error("Error!!! " + err);
         }
     };
@@ -44,7 +44,7 @@ async function updateRepoPages() {
             });
             console.log( 'createPagesSite status: ' + githubPagesCreate );
         } catch (err) {
-            core.setFailed(err.message);
+            setFailed(err.message);
             console.error("Error!!! " + err);
         };        
     };
@@ -62,7 +62,7 @@ async function updateRepoPages() {
             });
             console.log( 'updateInformationAboutPagesSite status: ' + githubPagesCreate );
         } catch {
-            core.setFailed(err.message);
+            setFailed(err.message);
             console.error("Error!!! " + err);
         }
     };

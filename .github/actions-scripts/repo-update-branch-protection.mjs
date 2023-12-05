@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { getOctokit } from "@actions/github";
-import * as core from '@actions/core';
+import { setOutput, setFailed } from "@actions/core";
 
 console.assert(process.env.GHA_TOKEN, "GHA_TOKEN not present");
 console.assert(process.env.REPO_OWNER, "REPO_OWNER not present");
@@ -32,7 +32,7 @@ async function updateRepoBranchProtection() {
         });
         console.log( 'updateRepoBranchProtection status: ' + updateBranchProtection );
     } catch (err) {
-        core.setFailed(err.message);
+        setFailed(err.message);
         console.error("Error!!! " + err);
     };
 

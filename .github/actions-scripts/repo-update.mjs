@@ -1,13 +1,14 @@
 #!/usr/bin/env node
 
 import { getOctokit } from "@actions/github";
-import * as core from '@actions/core';
+import { setOutput, setFailed } from "@actions/core";
 
 console.assert(process.env.GHA_TOKEN, "GHA_TOKEN not present");
 console.assert(process.env.REPO_OWNER, "REPO_OWNER not present");
 console.assert(process.env.REPO_NAME, "REPO_NAME not present");
 
 const octokit = getOctokit(process.env.GHA_TOKEN);
+const failed = setFailed(process.env.GHA_TOKEN);
 
 main();
 
@@ -20,7 +21,7 @@ async function updateRepo() {
         });
         console.log( 'privateVulnerabilityReporting status: ' + privateVulnerabilityReporting );
     } catch (err) {
-        core.setFailed(err.message);
+        failed(err.message);
         console.error("Error!!! " + err);
     };
 
@@ -50,7 +51,7 @@ async function updateRepo() {
         });
         console.log( 'repoUpdates status: ' + repoUpdates );
     } catch (err) {
-        core.setFailed(err.message);
+        failed(err.message);
         console.error("Error!!! " + err);
     };
 

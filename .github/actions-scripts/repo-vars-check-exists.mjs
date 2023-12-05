@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { getOctokit } from "@actions/github";
-import { setOutput, core } from "@actions/core";
+import { setOutput } from "@actions/core";
 
 console.assert(process.env.GHA_TOKEN, "GHA_TOKEN not present");
 console.assert(process.env.REPO_OWNER, "REPO_OWNER not present");
@@ -9,6 +9,7 @@ console.assert(process.env.REPO_NAME, "REPO_NAME not present");
 console.assert(process.env.VAR_NAME, "VAR_NAME not present");
 
 const octokit = getOctokit(process.env.GHA_TOKEN);
+const core = require('@actions/core');
 
 main();
 

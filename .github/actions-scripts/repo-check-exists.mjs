@@ -12,13 +12,20 @@ const octokit = getOctokit(process.env.GHA_TOKEN);
 main();
 
 async function checkUsersRepos() {
-    const { data:repoList } = await octokit.rest.repos.listForUser({
-        username: process.env.REPO_OWNER,
-        type: 'owner'
-    });
-    const repoListFiltered = repoList.filter( repoName => repoName.name === process.env.REPO_NAME );
-    const repoExists = (repoListFiltered.length == 1 ) ? true : false
-    console.log( repoListFiltered );
+
+    try {
+        const { data:repoList } = await octokit.rest.repos.listForUser({
+            username: process.env.REPO_OWNER,
+            type: 'owner'
+        });
+        const repoListFiltered = repoList.filter( repoName => repoName.name === process.env.REPO_NAME );
+        const repoExists = (repoListFiltered.length == 1 ) ? true : false
+        console.log( repoListFiltered );
+    } catch (err) {
+        core.setFailed(err.message);
+        console.error("Error!!! " + err);
+    };
+
     return repoExists;
 }
 

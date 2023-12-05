@@ -14,13 +14,20 @@ const octokit = getOctokit(process.env.GHA_TOKEN);
 main();
 
 async function updateRepoVariable() {
-    const { status:varCreated } = await octokit.rest.actions.updateRepoVariable({
-        owner: process.env.REPO_OWNER,
-        repo: process.env.REPO_NAME,
-        name: process.env.VAR_NAME,
-        value: process.env.VAR_VAL,
-    });
-    console.log( 'createRepoVarible status: ' + varCreated );
+
+    try {
+        const { status:varCreated } = await octokit.rest.actions.updateRepoVariable({
+            owner: process.env.REPO_OWNER,
+            repo: process.env.REPO_NAME,
+            name: process.env.VAR_NAME,
+            value: process.env.VAR_VAL,
+        });
+        console.log( 'createRepoVarible status: ' + varCreated );
+    } catch (err) {
+        core.setFailed(err.message);
+        console.error("Error!!! " + err);
+    };
+    
     return true;
 };
 

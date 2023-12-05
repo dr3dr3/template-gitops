@@ -15,7 +15,7 @@ jobs:
     permissions:
       contents: write
     outputs:
-      matrix-repos: ${{ steps.repos.outputs.SOLUTIONS }}
+      matrix-repos: ${{ steps.repos.outputs.REPOS }}
 
     steps:
 
@@ -27,7 +27,11 @@ jobs:
         run: |
           repos=$(yq '{"include": .repositories.solutions + .repositories.pipeline + .repositories.deployment }' repo/repositories.yml -o=json | jq -c)
           echo $repos
-          echo "SOLUTIONS=$repos" >> $GITHUB_OUTPUT
+          echo "REPOS=$repos" >> $GITHUB_OUTPUT
+
+      # gitops=$(yq '.repositories.pipeline | filter(.name == "gitops")' repo/repositories.yml -o=json | jq -c)
+      # repos=$(echo '{"include": [{"name":"gitops","repo":"devopsdemo-gitops","repo-description":"Configuration Management and IaC using GitHub Action Workflows","repo-template":"template-gitops","github-pages":false,"status":"active"}]}' | jq -c)
+
 
   make-changes:
     name: Make changes to repos

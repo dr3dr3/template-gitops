@@ -14,14 +14,32 @@ const octokit = getOctokit(process.env.GHA_TOKEN);
 main();
 
 async function createRepoUsingTemplate() {
-    const { status:repoCreated } = await octokit.rest.repos.createUsingTemplate({
-        template_owner: 'dr3dr3',
-        template_repo: process.env.REPO_TEMPLATE,
-        owner: process.env.REPO_OWNER,
-        name: process.env.REPO_NAME,
-        description: process.env.REPO_DESC
-        });
-    console.log( repoCreated );
+
+    try {
+        const { status:repoCreated } = await octokit.rest.repos.createUsingTemplate({
+            template_owner: 'dr3dr3',
+            template_repo: process.env.REPO_TEMPLATE,
+            owner: process.env.REPO_OWNER,
+            name: process.env.REPO_NAME,
+            description: process.env.REPO_DESC,
+            private: false,
+            visibility: 'public',
+            has_issues: true,
+            has_project: true,
+            has_wiki: false,
+            allow_squash_merge: true,
+            allow_merge_commit: false,
+            allow_rebase_merge: false,
+            delete_branch_on_merge: true,
+            squash_merge_commit_title: "PR_TITLE",
+            squash_merge_commit_message: "PR_BODY",
+            });
+        console.log( repoCreated );
+    } catch (err) {
+        core.setFailed(err.message);
+        console.error("Error!!! " + err);
+    };
+    
     return true;
 }
 

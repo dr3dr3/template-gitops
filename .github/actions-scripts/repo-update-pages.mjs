@@ -13,36 +13,57 @@ main();
 
 async function updateRepoPages() {
 
-    const { status:githubPages } = await octokit.rest.repos.getPages({
+    let getPages = 404;
+    try {
+        const { status:githubPages } = await octokit.rest.repos.getPages({
         owner: process.env.REPO_OWNER,
         repo: process.env.REPO_NAME,
-    });
-    console.log( 'getPages status: ' + githubPages );
-
-    if (githubPages === 404) {
-        const { status:githubPagesCreate } = await octokit.rest.repos.createPagesSite({
-            owner: process.env.REPO_OWNER,
-            repo: process.env.REPO_NAME,
-            build_type: "workflow",
-            source: {
-                "branch": "main",
-                "path": "/",
-            },
         });
-        console.log( 'createPagesSite status: ' + githubPagesCreate );
+        getPages = 200;
+        console.log( 'getPages status: ' + githubPages );
+    } catch (err) {
+        if (err.message === 'Not Found') {
+            console.error("Pages not setup yet");
+        } else {
+            core.setFailed(err.message);
+            console.error("Error!!! " + err);
+        }
     };
 
-    if (githubPages === 200) {
-        const { status:githubPagesCreate } = await octokit.rest.repos.updateInformationAboutPagesSite({
-            owner: process.env.REPO_OWNER,
-            repo: process.env.REPO_NAME,
-            build_type: "workflow",
-            source: {
-                "branch": "main",
-                "path": "/",
-            },
-        });
-        console.log( 'updateInformationAboutPagesSite status: ' + githubPagesCreate );
+    if (getPages === 404) {
+        try {
+            const { status:githubPagesCreate } = await octokit.rest.repos.createPagesSite({
+                owner: process.env.REPO_OWNER,
+                repo: process.env.REPO_NAME,
+                build_type: "workflow",
+                source: {
+                    "branch": "main",
+                    "path": "/",
+                },
+            });
+            console.log( 'createPagesSite status: ' + githubPagesCreate );
+        } catch (err) {
+            core.setFailed(err.message);
+            console.error("Error!!! " + err);
+        };        
+    };
+
+    if (getPages === 200) {
+        try {
+            const { status:githubPagesCreate } = await octokit.rest.repos.updateInformationAboutPagesSite({
+                owner: process.env.REPO_OWNER,
+                repo: process.env.REPO_NAME,
+                build_type: "workflow",
+                source: {
+                    "branch": "main",
+                    "path": "/",
+                },
+            });
+            console.log( 'updateInformationAboutPagesSite status: ' + githubPagesCreate );
+        } catch {
+            core.setFailed(err.message);
+            console.error("Error!!! " + err);
+        }
     };
 
     return true;

@@ -13,13 +13,20 @@ const octokit = getOctokit(process.env.GHA_TOKEN);
 main();
 
 async function checkRepoVariables() {
-    const { data:varList } = await octokit.rest.actions.listRepoVariables({
-        owner: process.env.REPO_OWNER,
-        repo: process.env.REPO_NAME,
-    });
-    const varListFiltered = varList.variables.filter( varName => varName.name === process.env.VAR_NAME );
-    const varExists = (varListFiltered.length == 1 ) ? true : false
-    console.log( varListFiltered );
+
+    try {
+        const { data:varList } = await octokit.rest.actions.listRepoVariables({
+            owner: process.env.REPO_OWNER,
+            repo: process.env.REPO_NAME,
+        });
+        const varListFiltered = varList.variables.filter( varName => varName.name === process.env.VAR_NAME );
+        const varExists = (varListFiltered.length == 1 ) ? true : false
+        console.log( varListFiltered );
+    } catch (err) {
+        core.setFailed(err.message);
+        console.error("Error!!! " + err);
+    };
+    
     return varExists;
 };
 

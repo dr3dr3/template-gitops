@@ -12,6 +12,7 @@ repositories:
       repo-description: 'Micro-frontend for slides using Reveal-MD'
       repo-template: template-revealmd
       route: present
+      github-pages: true
       status: active
     - name: feature-flags
       repo: template-featurevisor

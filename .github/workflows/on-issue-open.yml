@@ -12,7 +12,7 @@ jobs:
 
   slfb:
     name: Setup Branch for SLFB
-    if: ${{ contains( github.event.issue.title , '[SLFB]' ) }}
+    if: ${{ contains( github.event.issue.title , 'SLFB' ) }}
     runs-on: ubuntu-latest
     permissions:
       contents: write

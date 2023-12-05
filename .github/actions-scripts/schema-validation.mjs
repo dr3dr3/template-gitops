@@ -77,12 +77,12 @@ async function schemaValidate(inputYamlFile,schemaJsonFile) {
         const inputJson = yaml.load(readUtf8(inputYamlFile));
         const isValid = ajv.validate(repositoriesSchema, inputJson);
         console.log([isValid, ajv.errors]);
+        return isValid;
     } catch (err) {
         setFailed(err.message);
         console.error("Error!!! " + err);
-    };
-    
-    return true;
+        return false;
+    };    
 };
 
 async function main() {

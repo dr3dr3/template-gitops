@@ -49,8 +49,6 @@ jobs:
           git checkout -b ${{ steps.slfb-name.outputs.SLFB }}
           \`\`\`
 
-          ![Ready to Code](https://octodex.github.com/images/codercat.png)
-
           "
           echo $comment
           gh issue comment ${{github.event.issue.number}} --body "$comment"

@@ -44,8 +44,8 @@ async function updateRepo() {
             allow_auto_merge: true,
             delete_branch_on_merge: true,
             allow_update_branch: false,
-            squash_merge_commit_title: "COMMIT_OR_PR_TITLE",
-            squash_merge_commit_message: "PR_BODY",
+            squash_merge_commit_title: COMMIT_OR_PR_TITLE,
+            squash_merge_commit_message: PR_BODY,
             allow_forking: false,
         });
         console.log( 'repoUpdates status: ' + repoUpdates );

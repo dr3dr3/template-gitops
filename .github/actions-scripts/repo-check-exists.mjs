@@ -21,13 +21,12 @@ async function checkUsersRepos() {
         const repoListFiltered = repoList.filter( repoName => repoName.name === process.env.REPO_NAME );
         const repoExists = (repoListFiltered.length == 1 ) ? true : false
         console.log( repoListFiltered );
+        return repoExists;
     } catch (err) {
         setFailed(err.message);
         console.error("Error!!! " + err);
     };
-
-    return repoExists;
-}
+};
 
 async function main() {
     const result = await checkUsersRepos();

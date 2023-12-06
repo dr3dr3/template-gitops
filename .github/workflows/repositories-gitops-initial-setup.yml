@@ -48,3 +48,11 @@ jobs:
 
       - name: GHA Summary
         run: echo "GitOps repo initial setup completed" >> $GITHUB_STEP_SUMMARY
+
+  setup-labels:
+    name: Setup labels
+    needs: [get-config]
+    uses: ./.github/workflows/repo-label-changes.yml
+    with:
+      repo: ${{ github.event.repository.name }}
+    secrets: inherit

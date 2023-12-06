@@ -1,11 +1,16 @@
-name: REPOSITORY-VARIABLE-CHANGES
-run-name: Create/update Repo Variables ( ${{ github.event_name }} run by ${{ github.actor }} )
+name: REPOSITORY-LABEL-CHANGES
+run-name: Create/update Repo Labels ( ${{ github.event_name }} run by ${{ github.actor }} )
 
 on:
   workflow_dispatch:
+  workflow_call:
+    inputs:
+      repo:
+        required: false
+        type: string
   push:
     paths:
-      - 'repo/repo-variables.yml'
+      - 'repo/repo-labels.yml'
 
 jobs:
 
@@ -13,7 +18,7 @@ jobs:
     name: Get config from GitOps
     runs-on: ubuntu-latest
     outputs:
-      matrix: ${{ steps.repos.outputs.VARIABLES }}
+      matrix: ${{ steps.repos.outputs.LABELS }}
     steps:
 
       - name: Check GITOPS_PAT secret exists
@@ -28,9 +33,10 @@ jobs:
       - name: Get Solution Repo's
         id: repos
         run: |
-          vars=$(yq '{"include": .repoVariables }' repo/repo-variables.yml -o=json | jq -c)
-          echo $vars
-          echo "VARIABLES=$vars" >> $GITHUB_OUTPUT
+          filter=$(yq '.repoLabels | filter(.repo == "${{ inputs.repo || '*' }}")' repo/repo-labels.yml -o=json | jq -c)
+          labels=$(echo '{"include": $filter }' repo/repo-labels.yml -o=json | jq -c)
+          echo $labels
+          echo "LABELS=$labels" >> $GITHUB_OUTPUT
 
   make-changes:
     name: Make changes to repository variables
@@ -50,32 +56,34 @@ jobs:
       - name: Install Node dependencies
         run: npm install
 
-      - name: Check variable exists
+      - name: Check label exists
         id: exists
-        run: ./github/actions-scripts/repo-vars-check-exists.mjs
+        run: ./github/actions-scripts/repo-labels-check-exists.mjs
         env:
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ matrix.repo }}
 
-      - name: Create variable
+      - name: Create labels
         if: ${{ steps.exists.outputs.result != 'true' }}
-        run: .github/actions-scripts/repo-vars-create.mjs
+        run: .github/actions-scripts/repo-labels-create.mjs
         env:
           GHA_TOKEN: ${{ secrets.GITOPS_PAT }}
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ matrix.repo }}
-          VAR_NAME: ${{ matrix.name }}
-          VAR_VAL: ${{ matrix.value }}
+          LABEL_NAME: ${{ matrix.name }}
+          LABEL_COLOR: ${{ matrix.color }}
+          LABEL_DESC: ${{ matrix.description }}
 
-      - name: Update variable
+      - name: Update labels
         if: ${{ steps.exists.outputs.result == 'true' }}
-        run: .github/actions-scripts/repo-vars-update.mjs
+        run: .github/actions-scripts/repo-labels-update.mjs
         env:
           GHA_TOKEN: ${{ secrets.GITOPS_PAT }}
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ matrix.repo }}
-          VAR_NAME: ${{ matrix.name }}
-          VAR_VAL: ${{ matrix.value }}
+          LABEL_NAME: ${{ matrix.name }}
+          LABEL_COLOR: ${{ matrix.color }}
+          LABEL_DESC: ${{ matrix.description }}
 
       - name: GHA Summary
-        run: echo "Variable ${{ matrix.name }} created / updated" >> $GITHUB_STEP_SUMMARY
+        run: echo "Label ${{ matrix.name }} created / updated" >> $GITHUB_STEP_SUMMARY

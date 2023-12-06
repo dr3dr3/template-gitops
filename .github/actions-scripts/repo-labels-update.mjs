@@ -7,6 +7,8 @@ console.assert(process.env.GHA_TOKEN, "GHA_TOKEN not present");
 console.assert(process.env.REPO_OWNER, "REPO_OWNER not present");
 console.assert(process.env.REPO_NAME, "REPO_NAME not present");
 console.assert(process.env.LABEL_NAME, "LABEL_NAME not present");
+console.assert(process.env.LABEL_COLOR, "LABEL_COLOR not present");
+console.assert(process.env.LABEL_DESC, "LABEL_DESC not present");
 
 const octokit = getOctokit(process.env.GHA_TOKEN);
 
@@ -19,8 +21,8 @@ async function updateLabel() {
             owner: process.env.REPO_OWNER,
             repo: process.env.REPO_NAME,
             name: process.env.LABEL_NAME,
-            color: 'test',
-            description: 'test',
+            color: process.env.LABEL_COLOR,
+            description: process.env.LABEL_DESC,
         });
         console.log( 'updateLabel status: ' + updateLabel );
     } catch (err) {

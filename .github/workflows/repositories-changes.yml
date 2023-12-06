@@ -3,6 +3,9 @@ run-name: Create/update Repositories ( ${{ github.event_name }} run by ${{ githu
 
 on:
   workflow_dispatch:
+  push:
+    paths:
+      - 'repo/repositories.yml'
 
 permissions:
   contents: write
@@ -10,12 +13,12 @@ permissions:
 jobs:
 
   get-config:
-    name: Repositories GitOps
+    name: Get config from GitOps
     runs-on: ubuntu-latest
     permissions:
       contents: write
     outputs:
-      matrix-repos: ${{ steps.repos.outputs.REPOS }}
+      matrix: ${{ steps.repos.outputs.REPOS }}
 
     steps:
 
@@ -35,16 +38,12 @@ jobs:
           echo $repos
           echo "REPOS=$repos" >> $GITHUB_OUTPUT
 
-      # gitops=$(yq '.repositories.pipeline | filter(.name == "gitops")' repo/repositories.yml -o=json | jq -c)
-      # repos=$(echo '{"include": [{"name":"gitops","repo":"devopsdemo-gitops","repo-description":"Configuration Management and IaC using GitHub Action Workflows","repo-template":"template-gitops","github-pages":false,"status":"active"}]}' | jq -c)
-
-
   make-changes:
     name: Make changes to repos
     needs: [get-config]
     runs-on: ubuntu-latest
     strategy:
-      matrix: ${{ fromJSON(needs.get-config.outputs.matrix-repos) }}
+      matrix: ${{ fromJSON(needs.get-config.outputs.matrix) }}
     permissions:
       contents: write
       
@@ -95,6 +94,13 @@ jobs:
 
       - name: Update repo pages
         if: ${{ matrix.github-pages }}
+        run: .github/actions-scripts/repo-update-pages.mjs
+        env:
+          GHA_TOKEN: ${{ secrets.GITOPS_PAT }}
+          REPO_OWNER: ${{ github.repository_owner	 }}
+          REPO_NAME: ${{ matrix.repo }}
+
+      - name: Update repo branch protection
         run: .github/actions-scripts/repo-update-pages.mjs
         env:
           GHA_TOKEN: ${{ secrets.GITOPS_PAT }}

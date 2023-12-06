@@ -14,6 +14,7 @@ const repoSchemaCore = z.object({
     repoDescription: z.string(),
     repoTemplate: z.string(),
     githubPages: z.boolean(),
+    gitflow: z.enum(["pull-request","trunk-based-development"]),
     status: z.enum(["active","inactive"])
 }).strict();
 

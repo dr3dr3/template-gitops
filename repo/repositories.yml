@@ -6,6 +6,7 @@ repositories:
       repoTemplate: template-nextjs-landing
       route: root
       githubPages: true
+      gitflow: pull-request
       status: active
     - name: slides
       repo: template-revealmd
@@ -13,6 +14,7 @@ repositories:
       repoTemplate: template-revealmd
       route: present
       githubPages: true
+      gitflow: pull-request
       status: active
     - name: feature-flags
       repo: template-featurevisor
@@ -20,6 +22,7 @@ repositories:
       repoTemplate: template-featurevisor
       route: flags
       githubPages: true
+      gitflow: trunk-based-development
       status: active
   pipeline:
     - name: pipeline
@@ -27,12 +30,14 @@ repositories:
       repoDescription: 'Continuous Delivery Pipeline using GitHub Action Workflows'
       repoTemplate: template-pipeline
       githubPages: false
+      gitflow: trunk-based-development
       status: active
     - name: gitops
       repo: template-gitops
       repoDescription: 'Configuration Management and IaC using GitHub Action Workflows'
       repoTemplate: template-gitops
       githubPages: false
+      gitflow: pull-request
       status: active
   deployment:
     - name: stage
@@ -40,10 +45,12 @@ repositories:
       repoDescription: 'Repository for running deployments to Stage'
       repoTemplate: template-deployment
       githubPages: true
+      gitflow: trunk-based-development
       status: active
     - name: production
       repo: template-prd
       repoDescription: 'Repository for running deployments to Production'
       repoTemplate: template-deployment
       githubPages: true
+      gitflow: trunk-based-development
       status: active

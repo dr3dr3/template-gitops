@@ -14,14 +14,19 @@ main();
 async function checkUsersRepos() {
 
     try {
-        const { data:repoList } = await octokit.rest.repos.listForUser({
+        const { data:list } = await octokit.rest.repos.listForUser({
             username: process.env.REPO_OWNER,
             type: 'owner'
         });
-        const repoListFiltered = repoList.filter( repoName => repoName.name === process.env.REPO_NAME );
-        const repoExists = (repoListFiltered.length == 1 ) ? true : false
-        console.log( repoListFiltered );
-        return repoExists;
+        console.log( 'listForUser: ' + list );
+        const listFiltered = list.filter( repoName => repoName.name === process.env.REPO_NAME );
+        console.log( listFiltered );
+        const exists = (listFiltered.length == 1 ) ? true : false;
+        if (exists) {
+            return true;
+        } else {
+            return false;
+        };
     } catch (err) {
         setFailed(err.message);
         console.error("Error!!! " + err);

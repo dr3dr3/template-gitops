@@ -21,13 +21,12 @@ async function getLabel() {
             name: process.env.LABEL_NAME,
         });
         console.log( 'getLabel status: ' + getLabel );
+        return true;
     } catch (err) {
         setFailed(err.message);
         console.error("Error!!! " + err);
     };
-
-    return true;
-}
+};
 
 async function main() {
     const result = await getLabel();

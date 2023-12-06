@@ -41,14 +41,14 @@ repositories:
       status: active
   deployment:
     - name: stage
-      repo: template-stg
+      repo: template-deployment
       repoDescription: 'Repository for running deployments to Stage'
       repoTemplate: template-deployment
       githubPages: true
       gitflow: trunk-based-development
       status: active
     - name: production
-      repo: template-prd
+      repo: template-deployment
       repoDescription: 'Repository for running deployments to Production'
       repoTemplate: template-deployment
       githubPages: true

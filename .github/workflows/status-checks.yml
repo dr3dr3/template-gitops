@@ -2,6 +2,7 @@ name: STATUS-CHECKS
 run-name: Status Checks ( ${{ github.event_name }} run by ${{ github.actor }} )
 
 on:
+  workflow_dispatch:
   pull_request:
     types: [ready_for_review]
 
@@ -17,6 +18,12 @@ jobs:
       contents: none
 
     steps:
+      
+      - name: Check GITOPS_PAT secret exists
+        env:
+          gitops-secret: ${{ secrets.GITOPS_PAT }}
+        if: ${{ env.gitops-secret == '' }}
+        run: echo "echo the secret \"GITOPS_PAT\" has not been made; echo please go to \"settings \> secrets \> actions \> repository secrets\" to create it"
 
       - name: Checkout
         uses: actions/checkout@v3
@@ -27,7 +34,7 @@ jobs:
       - name: Install Node dependencies
         run: npm install
 
-      - name: Check repo exists
+      - name: Schema validation
         id: schema-validation
         run: .github/actions-scripts/schema-validation.mjs
         env:

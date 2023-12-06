@@ -1,93 +1,141 @@
 #!/usr/bin/env node
 
 import { readFileSync } from 'fs';
-import Ajv from 'ajv';
 import * as yaml from 'js-yaml';
-import { setOutput, setFailed } from "@actions/core";
-
-const ajv = new Ajv()
+import { z } from 'zod';
+import { setOutput, setFailed } from '@actions/core';
+import { stringify } from 'querystring';
 
 main();
 
-async function schemaValidate(inputYamlFile,schemaJsonFile) {
+const repoSchemaCore = z.object({
+    name: z.string(),
+    repo: z.string(),
+    repoDescription: z.string(),
+    repoTemplate: z.string(),
+    githubPages: z.boolean(),
+    status: z.enum(["active","inactive"])
+}).strict();
 
-    const repositoriesSchema = { 
-        type: "object",
-        properties: {
-            repositories: {
-                type: "object",
-                properties: {
-                    solutions: {
-                        type: "array",
-                        maxItems: 3,
-                        items: [{
-                            type: "object",
-                            properties: {
-                                name: { type: "string" },
-                                repo: { type: "string" },
-                                repoDescription: { type: "string" },
-                                repoTemplate: { type: "string" },
-                                route: { type: "string" },
-                                githubPages: { type: "boolean" },
-                                status: { type: "string" }
-                            }
-                        }],
-                    },
-                    pipeline: {
-                        type: "array",
-                        minItems: 2,
-                        maxItems: 2,
-                        items: [{
-                            type: "object",
-                            properties: {
-                                name: { type: "string" },
-                                repo: { type: "string" },
-                                repoDescription: { type: "string" },
-                                repoTemplate: { type: "string" },
-                                route: { type: "string" },
-                                githubPages: { type: "boolean" },
-                                status: { type: "string" }
-                            }
-                        }],
-                    },
-                    deployment: {
-                        type: "array",
-                        minItems: 2,
-                        maxItems: 6,
-                        items: [{
-                            type: "object",
-                            properties: {
-                                name: { type: "string" },
-                                repo: { type: "string" },
-                                repoDescription: { type: "string" },
-                                repoTemplate: { type: "string" },
-                                route: { type: "string" },
-                                githubPages: { type: "boolean" },
-                                status: { type: "string" }
-                            }
-                        }]
-                    }
-                }
-            }
-        }
-    };
-    
+const repoSchemaSolution = repoSchemaCore.extend({
+    route: z.string(),
+}).strict();
+
+const repoSchema = z.object({
+    repositories: z.object({
+        solutions: repoSchemaSolution.array().nonempty(),
+        pipeline: repoSchemaCore.array().length(2),
+        deployment: repoSchemaCore.array().nonempty(),
+    }).strict()
+});
+
+const repoVarsSchema = z.object({
+    repoVariables: z.object({
+        name: z.enum([
+            "SOLUTION",
+            "SOLN_DIR",
+            "OUTPUT_DIR",
+            "SITE_URL",
+            "DEPLOY_CI",
+            "DEPLOY_BLUE",
+            "REPO_GITOPS",
+            "REPO_STAGE",
+            "REPO_PROD",
+            "CHECK_LINKS",
+            "ENVIRONMENT"
+            ]),
+        repo: z.string(),
+        value: z.string(),
+    }).array()
+});
+
+const repoSecretsSchema = z.object({
+    repoSecrets: z.object({
+        name: z.enum([
+            "GITOPS_PAT",
+            ]),
+        repo: z.string(),
+        expiry: z.date(),
+    }).array()
+});
+
+const repoLabelsSchema = z.object({
+    repoLabels: z.object({
+        name: z.string(),
+        description: z.string(),
+        repo: z.string(),
+        color: z.enum([
+            "bcf5db",
+            ]),
+    }).array()
+});
+
+async function main() {
+
     try {
         const readUtf8 = (file) => readFileSync(file, 'utf8');
-        const inputJson = yaml.load(readUtf8(inputYamlFile));
-        const isValid = ajv.validate(repositoriesSchema, inputJson);
-        console.log([isValid, ajv.errors]);
-        return isValid;
+
+        const inputRepo = await yaml.load(readUtf8('./repo/repositories.yml'));
+        const isRepoValid = repoSchema.parse(inputRepo);
+        console.log(isRepoValid);
+        setOutput("result", true);
+
+        const inputRepoVars = await yaml.load(readUtf8('./repo/repo-variables.yml'));
+        const isRepoVarsValid = repoVarsSchema.parse(inputRepoVars);
+        console.log(isRepoVarsValid);
+        setOutput("result", true);
+
+        const inputRepoSecrets = await yaml.load(readUtf8('./repo/repo-secrets.yml'));
+        const isRepoSecretsValid = repoSecretsSchema.parse(inputRepoSecrets);
+        console.log(isRepoSecretsValid);
+        setOutput("result", true);
+
+        const inputRepoLabels = await yaml.load(readUtf8('./repo/repo-labels.yml'));
+        const isRepoLabelsValid = repoLabelsSchema.parse(inputRepoLabels);
+        console.log(isRepoLabelsValid);
+        setOutput("result", true);
+
+        // Check repo names used in valid
+        const repoSolutions = inputRepo.repositories.solutions.map( i => i.repo);
+        const repoPipeline = inputRepo.repositories.pipeline.map( i => i.repo);
+        const repoDeployment = inputRepo.repositories.deployment.map( i => i.repo);
+        const repos = [...repoSolutions, ...repoPipeline, ...repoDeployment];
+        // Check repo names in repo-variables.yml
+        const checkVars = inputRepoVars.repoVariables.map( i => {
+            const container = {};
+            container.repo = i.repo;
+            container.check = repos.includes(i.repo);
+            if( repos.includes(i.repo) === false ) setFailed(`Repo not recognised for variable: ${stringify(i)}`);
+            return container;
+        });
+        console.log('REPO VARIABLES CHECK REPO NAME --------------');
+        console.log(checkVars);
+        // Check repo names in repo-secrets.yml
+        const checkSecrets = inputRepoSecrets.repoSecrets.map( i => {
+            const container = {};
+            container.repo = i.repo;
+            container.check = repos.includes(i.repo);
+            if( repos.includes(i.repo) === false ) setFailed(`Repo not recognised for variable: ${stringify(i)}`);
+            return container;
+        });
+        console.log('REPO SECRETS CHECK REPO NAME --------------');
+        console.log(checkSecrets)
+        // Check repo names in repo-labels.yml
+        const checkLabels = inputRepoLabels.repoLabels.map( i => {
+            const container = {};
+            container.repo = i.repo;
+            container.check = repos.includes(i.repo);
+            if( repos.includes(i.repo) === false ) setFailed(`Repo not recognised for variable: ${stringify(i)}`);
+            return container;
+        });
+        console.log('REPO LABELS CHECK REPO NAME --------------');
+        console.log(checkLabels)
+
     } catch (err) {
         setFailed(err.message);
         console.error("Error!!! " + err);
-        return false;
-    };    
-};
+    }; 
 
-async function main() {
-    const result = schemaValidate('./repo/repositories.yml');
-    setOutput("result", result);
 };
 
 /*

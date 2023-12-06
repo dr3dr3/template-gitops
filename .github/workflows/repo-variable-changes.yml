@@ -25,7 +25,7 @@ jobs:
       - name: Get Solution Repo's
         id: repos
         run: |
-          vars=$(yq '{"include": .repo-variables }' repo/repo-variables.yml -o=json | jq -c)
+          vars=$(yq '{"include": .repoVariables }' repo/repo-variables.yml -o=json | jq -c)
           echo $vars
           echo "VARIABLES=$vars" >> $GITHUB_OUTPUT
 

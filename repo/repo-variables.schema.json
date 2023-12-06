@@ -1,7 +1,0 @@
-{ 
-  "repo-variables": [{
-    "name": { "type": "string" },
-    "repo": { "type": "string" },
-    "value": { "type": "string" }
-  }]
-}

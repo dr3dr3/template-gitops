@@ -73,7 +73,7 @@ jobs:
         env:
           GHA_TOKEN: ${{ secrets.GITOPS_PAT }}
           REPO_OWNER: 'dr3dr3'
-          REPO_NAME: ${{ matrix.repo-template }}
+          REPO_NAME: ${{ matrix.repoTemplate }}
 
       - name: Create repo
         id: create-repo
@@ -81,10 +81,10 @@ jobs:
         run: .github/actions-scripts/repo-create-using-template.mjs
         env:
           GHA_TOKEN: ${{ secrets.GITOPS_PAT }}
-          REPO_TEMPLATE: ${{ matrix.repo-template	 }}
+          REPO_TEMPLATE: ${{ matrix.repoTemplate	 }}
           REPO_OWNER: ${{ github.repository_owner	 }}
           REPO_NAME: ${{ matrix.repo }}
-          REPO_DESC: ${{ matrix.repo-description }}
+          REPO_DESC: ${{ matrix.repoDescription }}
 
       - name: Update repo
         run: .github/actions-scripts/repo-update.mjs

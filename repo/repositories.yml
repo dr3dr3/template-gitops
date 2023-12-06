@@ -23,26 +23,26 @@ repositories:
       status: active
   pipeline:
     - name: pipeline
-      repo: devopsdemo-pipeline
+      repo: template-pipeline
       repoDescription: 'Continuous Delivery Pipeline using GitHub Action Workflows'
       repoTemplate: template-pipeline
       githubPages: false
       status: active
     - name: gitops
-      repo: devopsdemo-gitops
+      repo: template-gitops
       repoDescription: 'Configuration Management and IaC using GitHub Action Workflows'
       repoTemplate: template-gitops
       githubPages: false
       status: active
   deployment:
     - name: stage
-      repo: devopsdemo-stg
+      repo: template-stg
       repoDescription: 'Repository for running deployments to Stage'
       repoTemplate: template-deployment
       githubPages: true
       status: active
     - name: production
-      repo: devopsdemo-prd
+      repo: template-prd
       repoDescription: 'Repository for running deployments to Production'
       repoTemplate: template-deployment
       githubPages: true

@@ -6,12 +6,13 @@ on:
     types: [opened, reopened, edited]
 
 permissions:
-  contents: none
+  contents: write
+  issues: write
 
 jobs:
 
   slfb:
-    name: Setup Branch for SLFB
+    name: Short-lived Feature Branches
     if: ${{ contains( github.event.issue.title , 'SLFB' ) }}
     runs-on: ubuntu-latest
     permissions:
@@ -55,4 +56,3 @@ jobs:
 
       - name: Message SLFB
         run: echo "### Short-Lived Feature Branch (SLFB) Created :thumbsup:" >> $GITHUB_STEP_SUMMARY
-

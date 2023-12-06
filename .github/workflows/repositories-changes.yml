@@ -101,7 +101,8 @@ jobs:
           REPO_NAME: ${{ matrix.repo }}
 
       - name: Update repo branch protection
-        run: .github/actions-scripts/repo-update-pages.mjs
+        if: ${{ matrix.gitflow == 'pull-request' }}
+        run: .github/actions-scripts/repo-update-branch-protection.mjs
         env:
           GHA_TOKEN: ${{ secrets.GITOPS_PAT }}
           REPO_OWNER: ${{ github.repository_owner	 }}

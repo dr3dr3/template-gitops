@@ -1,7 +1,7 @@
 repoVariables:
 
   - name: SOLUTION
-    repo: template-nextjs-landing
+    repo: template-nextjs-landingx
     value: nextjs
   - name: SOLN_DIR
     repo: template-nextjs-landing

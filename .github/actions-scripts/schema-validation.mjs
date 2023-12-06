@@ -105,7 +105,7 @@ async function main() {
             const container = {};
             container.repo = i.repo;
             container.check = repos.includes(i.repo);
-            if( repos.includes(i.repo) === false ) setFailed(`Repo not recognised for variable: ${stringify(i)}`);
+            if( repos.includes(i.repo) === false ) setFailed(`Repo name not recognised for variable: ${stringify(i)}`);
             return container;
         });
         console.log('REPO VARIABLES CHECK REPO NAME --------------');
@@ -115,7 +115,7 @@ async function main() {
             const container = {};
             container.repo = i.repo;
             container.check = repos.includes(i.repo);
-            if( repos.includes(i.repo) === false ) setFailed(`Repo not recognised for variable: ${stringify(i)}`);
+            if( repos.includes(i.repo) === false ) setFailed(`Repo name not recognised for variable: ${stringify(i)}`);
             return container;
         });
         console.log('REPO SECRETS CHECK REPO NAME --------------');
@@ -125,7 +125,7 @@ async function main() {
             const container = {};
             container.repo = i.repo;
             container.check = repos.includes(i.repo);
-            if( repos.includes(i.repo) === false ) setFailed(`Repo not recognised for variable: ${stringify(i)}`);
+            if( repos.includes(i.repo) === false ) setFailed(`Repo name not recognised for variable: ${stringify(i)}`);
             return container;
         });
         console.log('REPO LABELS CHECK REPO NAME --------------');

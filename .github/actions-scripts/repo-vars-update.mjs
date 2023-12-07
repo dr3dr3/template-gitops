@@ -23,12 +23,11 @@ async function updateRepoVariable() {
             value: process.env.VAR_VAL,
         });
         console.log( 'createRepoVarible status: ' + varCreated );
+        return true;
     } catch (err) {
         setFailed(err.message);
         console.error("Error!!! " + err);
     };
-    
-    return true;
 };
 
 async function main() {

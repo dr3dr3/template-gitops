@@ -36,13 +36,12 @@ async function updateRepoBranchProtection() {
             allow_fork_syncing: false,
         });
         console.log( 'updateRepoBranchProtection status: ' + updateBranchProtection );
+        return true;
     } catch (err) {
         setFailed(err.message);
         console.error("Error!!! " + err);
     };
-
-    return true;
-}
+};
 
 async function main() {
     const result = await updateRepoBranchProtection();

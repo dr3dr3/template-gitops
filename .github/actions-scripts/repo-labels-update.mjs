@@ -25,13 +25,12 @@ async function updateLabel() {
             description: process.env.LABEL_DESC,
         });
         console.log( 'updateLabel status: ' + updateLabel );
+        return true;
     } catch (err) {
         setFailed(err.message);
         console.error("Error!!! " + err);
     };
-
-    return true;
-}
+};
 
 async function main() {
     const result = await updateLabel();

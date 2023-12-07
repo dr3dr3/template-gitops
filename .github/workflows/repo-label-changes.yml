@@ -34,7 +34,7 @@ jobs:
         id: repos
         run: |
           filter=$(yq '.repoLabels | filter(.repo == "${{ inputs.repo || '*' }}")' repo/repo-labels.yml -o=json | jq -c)
-          labels=$(echo '{"include": $filter }' repo/repo-labels.yml -o=json | jq -c)
+          labels=$(echo '{"include": $filter }' | jq -c)
           echo $labels
           echo "LABELS=$labels" >> $GITHUB_OUTPUT
 

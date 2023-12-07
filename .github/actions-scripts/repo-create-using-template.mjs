@@ -35,13 +35,12 @@ async function createRepoUsingTemplate() {
             squash_merge_commit_message: "PR_BODY",
             });
         console.log( repoCreated );
+        return true;
     } catch (err) {
         setFailed(err.message);
         console.error("Error!!! " + err);
     };
-    
-    return true;
-}
+};
 
 async function main() {
     const result = await createRepoUsingTemplate();

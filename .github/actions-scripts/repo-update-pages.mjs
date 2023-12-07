@@ -67,7 +67,7 @@ async function updateRepoPages() {
     };
 
     return true;
-}
+};
 
 async function main() {
     const result = await updateRepoPages();

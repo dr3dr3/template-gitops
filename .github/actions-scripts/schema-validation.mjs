@@ -145,7 +145,6 @@ async function main() {
         setFailed(err.message);
         console.error("Error!!! " + err);
     }; 
-
 };
 
 main();

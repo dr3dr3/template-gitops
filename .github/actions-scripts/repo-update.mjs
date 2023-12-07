@@ -54,7 +54,7 @@ async function updateRepo() {
     };
 
     return true;
-}
+};
 
 async function main() {
     const result = await updateRepo();

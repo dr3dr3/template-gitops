@@ -25,13 +25,12 @@ async function updateRepoLabels() {
             description: process.env.LABEL_DESC,
         });
         console.log( 'createLabel status: ' + createLabel );
+        return true;
     } catch (err) {
         setFailed(err.message);
         console.error("Error!!! " + err);
     };
-
-    return true;
-}
+};
 
 async function main() {
     const result = await updateRepoLabels();

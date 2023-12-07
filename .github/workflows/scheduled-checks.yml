@@ -41,3 +41,5 @@ jobs:
         run: .github/actions-scripts/schema-validation.mjs
         env:
           GHA_TOKEN: ${{ secrets.GITOPS_PAT }}
+
+      # Create issue if secrets about to expire

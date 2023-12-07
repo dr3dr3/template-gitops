@@ -11,8 +11,8 @@ permissions:
 
 jobs:
 
-  schema-validation:
-    name: Schema validation
+  status-checks:
+    name: Status checks for pull requests
     runs-on: ubuntu-latest
     permissions:
       contents: none

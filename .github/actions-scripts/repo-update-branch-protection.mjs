@@ -18,7 +18,12 @@ async function updateRepoBranchProtection() {
             owner: process.env.REPO_OWNER,
             repo: process.env.REPO_NAME,
             branch: 'main',
-            required_status_checks: null, // add once created workflow for status checks / validation
+            required_status_checks: { 
+                strict: true,
+                checks: {
+                    context: ["status-checks"]
+                },
+            },
             enforce_admins: true,
             required_pull_request_reviews: null,
             restrictions: null,

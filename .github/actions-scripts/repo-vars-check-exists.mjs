@@ -15,14 +15,19 @@ main();
 async function checkRepoVariables() {
 
     try {
-        const { data:varList } = await octokit.rest.actions.listRepoVariables({
+        const { data:list } = await octokit.rest.actions.listRepoVariables({
             owner: process.env.REPO_OWNER,
             repo: process.env.REPO_NAME,
         });
-        const varListFiltered = varList.variables.filter( varName => varName.name === process.env.VAR_NAME );
-        const varExists = (varListFiltered.length == 1 ) ? true : false
-        console.log( varListFiltered );
-        return varExists;
+        console.log( 'listRepoVariables: ' + list );
+        const listFiltered = list.filter( i => i.name === process.env.VAR_NAME );
+        console.log( listFiltered );
+        const exists = (listFiltered.length == 1 ) ? true : false;
+        if (exists) {
+            return true;
+        } else {
+            return false;
+        };
     } catch (err) {
         setFailed(err.message);
         console.error("Error!!! " + err);

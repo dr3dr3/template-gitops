@@ -15,13 +15,19 @@ main();
 async function getLabel() {
 
     try {
-        const { status:getLabel } = await octokit.rest.issues.getLabel({
+        const { data:list } = await octokit.rest.issues.listLabelsForRepo({
             owner: process.env.REPO_OWNER,
             repo: process.env.REPO_NAME,
-            name: process.env.LABEL_NAME,
         });
         console.log( 'getLabel status: ' + getLabel );
-        return true;
+        const listFiltered = list.filter( i => i.name === process.env.LABEL_NAME );
+        console.log( listFiltered );
+        const exists = (listFiltered.length == 1 ) ? true : false;
+        if (exists) {
+            return true;
+        } else {
+            return false;
+        };
     } catch (err) {
         setFailed(err.message);
         console.error("Error!!! " + err);

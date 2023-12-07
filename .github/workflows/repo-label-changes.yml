@@ -60,8 +60,10 @@ jobs:
         id: exists
         run: .github/actions-scripts/repo-labels-check-exists.mjs
         env:
+          GHA_TOKEN: ${{ secrets.GITOPS_PAT }}
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ matrix.repo }}
+          LABEL_NAME: ${{ matrix.name }}
 
       - name: Create labels
         if: ${{ steps.exists.outputs.result != 'true' }}

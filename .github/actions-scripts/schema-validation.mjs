@@ -54,9 +54,10 @@ const repoSecretsSchema = z.object({
     repoSecrets: z.object({
         name: z.enum([
             "GITOPS_PAT",
+            "CODESPACE_PAT",
             ]),
         repo: z.string(),
-        expiry: z.date(),
+        expiry: z.date().min(new Date(currentDate. getTime() - 14 * 24 * 60 * 60 * 1000), { message: "Secret is about to expire or has expired"}),
     }).array()
 });
 

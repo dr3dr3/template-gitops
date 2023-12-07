@@ -33,7 +33,7 @@ jobs:
       - name: Get Solution Repo's
         id: repos
         run: |
-          filter=$(yq '.repoLabels | filter(.repo == "*")' repo/repo-labels.yml -o=json | jq -c)
+          filter=$(yq '.repoLabels | filter(.repo == "${{ inputs.repo || '*' }}" )' repo/repo-labels.yml -o=json | jq -c)
           labels="{\"include\": $filter }"
           echo $labels
           echo "LABELS=$labels" >> $GITHUB_OUTPUT
@@ -58,7 +58,7 @@ jobs:
 
       - name: Check label exists
         id: exists
-        run: ./github/actions-scripts/repo-labels-check-exists.mjs
+        run: .github/actions-scripts/repo-labels-check-exists.mjs
         env:
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ matrix.repo }}

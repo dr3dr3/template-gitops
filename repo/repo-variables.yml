@@ -85,30 +85,30 @@ repoVariables:
     value: 'false'
 
   - name: SITE_URL
-    repo: template-stg
+    repo: template-deployment
     value: https://stg.andredreyer.com
   - name: CHECK_LINKS
-    repo: template-stg
+    repo: template-deployment
     value: 'true'
   - name: REPO_GITOPS
-    repo: template-stg
+    repo: template-deployment
     value: dr3dr3/template-gitops
   - name: ENVIRONMENT
-    repo: template-stg
+    repo: template-deployment
     value: stg
 
   - name: SITE_URL
-    repo: template-prd
+    repo: template-deployment
     value: https://www.andredreyer.com
   - name: CHECK_LINKS
-    repo: template-prd
+    repo: template-deployment
     value: 'true'
   - name: REPO_GITOPS
-    repo: template-prd
+    repo: template-deployment
     value: dr3dr3/template-gitops
   - name: DEPLOY_BLUE
-    repo: template-prd
+    repo: template-deployment
     value: GITHUB-PAGES
   - name: ENVIRONMENT
-    repo: template-prd
+    repo: template-deployment
     value: prd

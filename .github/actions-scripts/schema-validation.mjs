@@ -6,8 +6,6 @@ import { z } from 'zod';
 import { setOutput, setFailed } from '@actions/core';
 import { stringify } from 'querystring';
 
-main();
-
 const repoSchemaCore = z.object({
     name: z.string(),
     repo: z.string(),
@@ -57,7 +55,7 @@ const repoSecretsSchema = z.object({
             "CODESPACE_PAT",
             ]),
         repo: z.string(),
-        expiry: z.date().min(new Date(currentDate. getTime() - 14 * 24 * 60 * 60 * 1000), { message: "Secret is about to expire or has expired"}),
+        expiry: z.date().min(getSecretExpiryCheckDate(), { message: "Secret is about to expire or has expired"}),
     }).array()
 });
 
@@ -71,6 +69,16 @@ const repoLabelsSchema = z.object({
             ]),
     }).array()
 });
+
+function getSecretExpiryCheckDate() {
+    const now = new Date();
+  
+    return new Date(
+      now.getFullYear(),
+      now.getMonth(),
+      now.getDate() + 14,
+    );
+};
 
 async function main() {
 
@@ -139,6 +147,8 @@ async function main() {
     }; 
 
 };
+
+main();
 
 /*
 Test locally:

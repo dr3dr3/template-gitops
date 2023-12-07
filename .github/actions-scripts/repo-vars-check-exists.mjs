@@ -22,12 +22,11 @@ async function checkRepoVariables() {
         const varListFiltered = varList.variables.filter( varName => varName.name === process.env.VAR_NAME );
         const varExists = (varListFiltered.length == 1 ) ? true : false
         console.log( varListFiltered );
+        return varExists;
     } catch (err) {
         setFailed(err.message);
         console.error("Error!!! " + err);
     };
-    
-    return varExists;
 };
 
 async function main() {

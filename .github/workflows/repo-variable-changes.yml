@@ -54,8 +54,10 @@ jobs:
         id: exists
         run: .github/actions-scripts/repo-vars-check-exists.mjs
         env:
+          GHA_TOKEN: ${{ secrets.GITOPS_PAT }}
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ matrix.repo }}
+          VAR_NAME: ${{ matrix.name }}
 
       - name: Create variable
         if: ${{ steps.exists.outputs.result != 'true' }}

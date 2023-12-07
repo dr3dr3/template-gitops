@@ -52,7 +52,7 @@ jobs:
 
       - name: Check variable exists
         id: exists
-        run: ./github/actions-scripts/repo-vars-check-exists.mjs
+        run: .github/actions-scripts/repo-vars-check-exists.mjs
         env:
           REPO_OWNER: ${{ github.repository_owner }}
           REPO_NAME: ${{ matrix.repo }}

@@ -23,7 +23,7 @@ const repoSchemaSolution = repoSchemaCore.extend({
 const repoSchema = z.object({
     repositories: z.object({
         solutions: repoSchemaSolution.array().nonempty(),
-        pipeline: repoSchemaCore.array().length(2),
+        core: repoSchemaCore.array().length(3),
         deployment: repoSchemaCore.array().nonempty(),
     }).strict()
 });
@@ -107,9 +107,9 @@ async function main() {
 
         // Check repo names used in valid
         const repoSolutions = inputRepo.repositories.solutions.map( i => i.repo);
-        const repoPipeline = inputRepo.repositories.pipeline.map( i => i.repo);
+        const repoCore = inputRepo.repositories.core.map( i => i.repo);
         const repoDeployment = inputRepo.repositories.deployment.map( i => i.repo);
-        const repos = [...repoSolutions, ...repoPipeline, ...repoDeployment];
+        const repos = [...repoSolutions, ...repoCore, ...repoDeployment];
         // Check repo names in repo-variables.yml
         const checkVars = inputRepoVars.repoVariables.map( i => {
             const container = {};

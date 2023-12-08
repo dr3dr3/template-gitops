@@ -1,5 +1,5 @@
-name: ON-ISSUE-OPEN
-run-name: Issue Opened Workflows ( ${{ github.event_name }} run by ${{ github.actor }} )
+name: ON-ISSUE-LABELED
+run-name: Issue Labeled Workflows ( ${{ github.event_name }} run by ${{ github.actor }} )
 
 on:
   issues:

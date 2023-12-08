@@ -3,6 +3,12 @@ run-name: Create/update Repo Labels ( ${{ github.event_name }} run by ${{ github
 
 on:
   workflow_dispatch:
+    inputs:
+      repo:
+        description: 'Repository for the label changes'
+        required: false
+        default: '*'
+        type: string
   workflow_call:
     inputs:
       repo:

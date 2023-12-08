@@ -3,6 +3,17 @@ run-name: Create/update Repo Variables ( ${{ github.event_name }} run by ${{ git
 
 on:
   workflow_dispatch:
+    inputs:
+      repo:
+        description: 'Repository for the label changes'
+        required: false
+        default: '*'
+        type: string
+  workflow_call:
+    inputs:
+      repo:
+        required: false
+        type: string
   push:
     paths:
       - 'repo/repo-variables.yml'
@@ -28,7 +39,8 @@ jobs:
       - name: Get Solution Repo's
         id: repos
         run: |
-          vars=$(yq '{"include": .repoVariables }' repo/repo-variables.yml -o=json | jq -c)
+          filter=$(yq '.repoVariables | filter(.repo == "${{ inputs.repo || '*' }}" )' repo/repo-variables.yml -o=json | jq -c)
+          vars="{\"include\": $filter }"
           echo $vars
           echo "VARIABLES=$vars" >> $GITHUB_OUTPUT
 

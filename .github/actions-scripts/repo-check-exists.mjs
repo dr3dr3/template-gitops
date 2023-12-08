@@ -19,7 +19,7 @@ async function checkUsersRepos() {
             type: 'owner'
         });
         console.log( 'listForUser: ' + list );
-        const listFiltered = list.filter( repoName => repoName.name === process.env.REPO_NAME );
+        const listFiltered = list.filter( i => i.name === process.env.REPO_NAME );
         console.log( listFiltered );
         const exists = (listFiltered.length == 1 ) ? true : false;
         if (exists) {

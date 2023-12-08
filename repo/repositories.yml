@@ -16,15 +16,7 @@ repositories:
       githubPages: true
       gitflow: pull-request
       status: active
-    - name: feature-flags
-      repo: template-featurevisor
-      repoDescription: 'Feature flag service'
-      repoTemplate: template-featurevisor
-      route: flags
-      githubPages: true
-      gitflow: trunk-based-development
-      status: active
-  pipeline:
+  core:
     - name: pipeline
       repo: template-pipeline
       repoDescription: 'Continuous Delivery Pipeline using GitHub Action Workflows'
@@ -38,6 +30,13 @@ repositories:
       repoTemplate: template-gitops
       githubPages: false
       gitflow: pull-request
+      status: active
+    - name: feature-flags
+      repo: template-featurevisor
+      repoDescription: 'Feature flag service'
+      repoTemplate: template-featurevisor
+      githubPages: true
+      gitflow: trunk-based-development
       status: active
   deployment:
     - name: stage

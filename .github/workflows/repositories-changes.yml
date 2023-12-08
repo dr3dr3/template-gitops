@@ -34,7 +34,7 @@ jobs:
       - name: Get Solution Repo's
         id: repos
         run: |
-          repos=$(yq '{"include": .repositories.solutions + .repositories.pipeline + .repositories.deployment }' repo/repositories.yml -o=json | jq -c)
+          repos=$(yq '{"include": .repositories.solutions + .repositories.core + .repositories.deployment }' repo/repositories.yml -o=json | jq -c)
           echo $repos
           echo "REPOS=$repos" >> $GITHUB_OUTPUT
 

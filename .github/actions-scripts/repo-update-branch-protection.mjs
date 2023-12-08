@@ -20,9 +20,7 @@ async function updateRepoBranchProtection() {
             branch: 'main',
             required_status_checks: { 
                 strict: true,
-                checks: {
-                    context: ["status-checks"]
-                },
+                contexts: ["status-checks"],
             },
             enforce_admins: true,
             required_pull_request_reviews: null,

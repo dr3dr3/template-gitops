@@ -1,5 +1,6 @@
 repositories:
   solutions:
+
     - name: start
       repo: template-nextjs-landing
       repoDescription: 'Micro-frontend for landing page'
@@ -16,6 +17,14 @@ repositories:
       githubPages: true
       gitflow: pull-request
       status: active
+    - name: feature-flags
+      repo: template-featurevisor
+      repoDescription: 'Feature flag service'
+      repoTemplate: template-featurevisor
+      githubPages: true
+      gitflow: trunk-based-development
+      status: active
+
   core:
     - name: pipeline
       repo: template-pipeline
@@ -31,13 +40,7 @@ repositories:
       githubPages: false
       gitflow: pull-request
       status: active
-    - name: feature-flags
-      repo: template-featurevisor
-      repoDescription: 'Feature flag service'
-      repoTemplate: template-featurevisor
-      githubPages: true
-      gitflow: trunk-based-development
-      status: active
+
   deployment:
     - name: stage
       repo: template-deployment

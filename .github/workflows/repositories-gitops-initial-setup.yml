@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      issues: write
 
     steps:
 
@@ -33,6 +34,22 @@ jobs:
       - name: Install Node dependencies
         run: npm install
 
+      - name: Create label for short-lived feature branches
+        run: gh label create "$LABEL_NAME" --description "$LABEL_DESC" --color "$LABEL_COLOR" --force
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LABEL_NAME: 'dev-slfb'
+          LABEL_DESC: 'Short-lived Feature Branch'
+          LABEL_COLOR: 'bcf5db'
+
+      - name: Create label for codespace for SLFB
+        run: gh label create "$LABEL_NAME" --description "$LABEL_DESC" --color "$LABEL_COLOR" --force
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          LABEL_NAME: 'dev-codespace'
+          LABEL_DESC: 'Codespace for SLFB'
+          LABEL_COLOR: 'bcf5db'
+
       - name: Update repo
         run: .github/actions-scripts/repo-update.mjs
         env:
@@ -50,10 +67,4 @@ jobs:
       - name: GHA Summary
         run: echo "GitOps repo initial setup completed" >> $GITHUB_STEP_SUMMARY
 
-  setup-labels:
-    name: Setup labels
-    needs: [get-config]
-    uses: ./.github/workflows/repo-label-changes.yml
-    with:
-      repo: ${{ github.event.repository.name }}
-    secrets: inherit
+

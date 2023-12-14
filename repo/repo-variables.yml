@@ -3,6 +3,9 @@ repoVariables:
   - name: SOLUTION
     repo: template-nextjs-landing
     value: nextjs
+  - name: SOLN_GROUP
+    repo: template-nextjs-landing
+    value: devops-demo
   - name: SOLN_DIR
     repo: template-nextjs-landing
     value: landing
@@ -20,10 +23,10 @@ repoVariables:
     value: dr3dr3/template-gitops
   - name: REPO_STAGE
     repo: template-nextjs-landing
-    value: dr3dr3/template-stg
+    value: dr3dr3/template-deployment
   - name: REPO_PROD
     repo: template-nextjs-landing
-    value: dr3dr3/template-prd
+    value: dr3dr3/template-deployment
   - name: CHECK_LINKS
     repo: template-nextjs-landing
     value: 'false'
@@ -31,6 +34,9 @@ repoVariables:
   - name: SOLUTION
     repo: template-revealmd
     value: revealmd
+  - name: SOLN_GROUP
+    repo: template-revealmd
+    value: devops-demo
   - name: SOLN_DIR
     repo: template-revealmd
     value: revealmd
@@ -48,10 +54,10 @@ repoVariables:
     value: dr3dr3/template-gitops
   - name: REPO_STAGE
     repo: template-revealmd
-    value: dr3dr3/template-stg
+    value: dr3dr3/template-deployment
   - name: REPO_PROD
     repo: template-revealmd
-    value: dr3dr3/template-prd
+    value: dr3dr3/template-deployment
   - name: CHECK_LINKS
     repo: template-revealmd
     value: 'false'
@@ -59,6 +65,9 @@ repoVariables:
   - name: SOLUTION
     repo: template-featurevisor
     value: featurevisor
+  - name: SOLN_GROUP
+    repo: template-featurevisor
+    value: feature-flags
   - name: SOLN_DIR
     repo: template-featurevisor
     value: featureflags
@@ -76,14 +85,17 @@ repoVariables:
     value: dr3dr3/template-gitops
   - name: REPO_STAGE
     repo: template-featurevisor
-    value: dr3dr3/template-stg
+    value: dr3dr3/template-deployment
   - name: REPO_PROD
     repo: template-featurevisor
-    value: dr3dr3/template-prd
+    value: dr3dr3/template-deployment
   - name: CHECK_LINKS
     repo: template-featurevisor
     value: 'false'
 
+  - name: SOLN_GROUP
+    repo: template-deployment
+    value: feature-flags
   - name: SITE_URL
     repo: template-deployment
     value: https://stg.andredreyer.com
@@ -93,10 +105,16 @@ repoVariables:
   - name: REPO_GITOPS
     repo: template-deployment
     value: dr3dr3/template-gitops
+  - name: DEPLOY_BLUE
+    repo: template-deployment
+    value: GITHUB-PAGES
   - name: ENVIRONMENT
     repo: template-deployment
     value: stg
 
+  - name: SOLN_GROUP
+    repo: template-deployment
+    value: feature-flags
   - name: SITE_URL
     repo: template-deployment
     value: https://www.andredreyer.com

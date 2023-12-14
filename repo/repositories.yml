@@ -5,6 +5,9 @@ repositories:
       repo: template-nextjs-landing
       repoDescription: 'Micro-frontend for landing page'
       repoTemplate: template-nextjs-landing
+      groups: 
+      - devops-demo
+      - default
       route: root
       githubPages: true
       gitflow: pull-request
@@ -13,6 +16,8 @@ repositories:
       repo: template-revealmd
       repoDescription: 'Micro-frontend for slides using Reveal-MD'
       repoTemplate: template-revealmd
+      groups: 
+      - devops-demo
       route: present
       githubPages: true
       gitflow: pull-request
@@ -21,6 +26,9 @@ repositories:
       repo: template-featurevisor
       repoDescription: 'Feature flag service'
       repoTemplate: template-featurevisor
+      groups: 
+      - feature-flag-service
+      route: root
       githubPages: true
       gitflow: trunk-based-development
       status: active
@@ -42,17 +50,35 @@ repositories:
       status: active
 
   deployment:
-    - name: stage
+    - name: stage-devops-demo
       repo: template-deployment
-      repoDescription: 'Repository for running deployments to Stage'
+      repoDescription: 'Repository for controlling deployments to Stage'
       repoTemplate: template-deployment
+      host: github-pages
       githubPages: true
       gitflow: trunk-based-development
       status: active
-    - name: production
+    - name: production-devops-demo
       repo: template-deployment
-      repoDescription: 'Repository for running deployments to Production'
+      repoDescription: 'Repository for controlling deployments to Production'
       repoTemplate: template-deployment
+      host: github-pages
+      githubPages: true
+      gitflow: trunk-based-development
+      status: active
+    - name: stage-feature-flags
+      repo: template-deployment
+      repoDescription: 'Repository for controlling deployments to Stage'
+      repoTemplate: template-deployment
+      host: github-pages
+      githubPages: true
+      gitflow: trunk-based-development
+      status: active
+    - name: production-feature-flags
+      repo: template-deployment
+      repoDescription: 'Repository for controlling deployments to Production'
+      repoTemplate: template-deployment
+      host: github-pages
       githubPages: true
       gitflow: trunk-based-development
       status: active

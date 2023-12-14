@@ -17,14 +17,19 @@ const repoSchemaCore = z.object({
 }).strict();
 
 const repoSchemaSolution = repoSchemaCore.extend({
+    group: z.string(),
     route: z.string(),
+}).strict();
+
+const repoSchemaDeployment = repoSchemaCore.extend({
+    host: z.enum(["GITHUB-PAGES","VERCEL","SURGE"]),
 }).strict();
 
 const repoSchema = z.object({
     repositories: z.object({
         solutions: repoSchemaSolution.array().nonempty(),
-        core: repoSchemaCore.array().length(3),
-        deployment: repoSchemaCore.array().nonempty(),
+        core: repoSchemaCore.array().length(2),
+        deployment: repoSchemaDeployment.array().nonempty(),
     }).strict()
 });
 
@@ -32,6 +37,7 @@ const repoVarsSchema = z.object({
     repoVariables: z.object({
         name: z.enum([
             "SOLUTION",
+            "SOLN_GROUP",
             "SOLN_DIR",
             "OUTPUT_DIR",
             "SITE_URL",

@@ -23,16 +23,7 @@ async function createRepoUsingTemplate() {
             name: process.env.REPO_NAME,
             description: process.env.REPO_DESC,
             private: false,
-            visibility: 'public',
-            has_issues: true,
-            has_project: true,
-            has_wiki: false,
-            allow_squash_merge: true,
-            allow_merge_commit: false,
-            allow_rebase_merge: false,
-            delete_branch_on_merge: true,
-            squash_merge_commit_title: "PR_TITLE",
-            squash_merge_commit_message: "PR_BODY",
+            include_all_branches: false,
             });
         console.log( repoCreated );
         return true;
@@ -49,5 +40,5 @@ async function main() {
 
 /*
 Test locally:
-GHA_TOKEN=<token> REPO_OWNER=dr3dr3 REPO_NAME=template-slidev VAR_NAME=SOLUTION node .github/actions-scripts/repo-vars-check-exists.mjs
+GHA_TOKEN=<token> REPO_OWNER=dr3dr3 REPO_NAME=template-slidev REPO_TEMPLATE=dr3dr3/template-revealmd REPO_DESC=testing node .github/actions-scripts/repo-create-using-template.mjs
 */

@@ -69,7 +69,7 @@ jobs:
 
       - name: Check template exists
         id: template-exists
-        run: .github/actions-scripts/repo-check-exists.mjs
+        run: .github/actions-scripts/repo-template-exists.mjs
         env:
           GHA_TOKEN: ${{ secrets.GITOPS_PAT }}
           REPO_OWNER: 'dr3dr3'

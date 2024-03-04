@@ -11,7 +11,7 @@ const octokit = getOctokit(process.env.GHA_TOKEN);
 
 main();
 
-async function checkUsersRepos() {
+async function checkTemplateRepos() {
 
     try {
         const { data:list } = await octokit.rest.repos.listForUser({
@@ -23,7 +23,15 @@ async function checkUsersRepos() {
         console.log( listFiltered );
         const exists = (listFiltered.length == 1 ) ? true : false;
         if (exists) {
-            return true;
+            const { data:getRepo } = await octokit.rest.repos.get({
+                owner: process.env.REPO_OWNER,
+                repo: listFiltered[0].name,
+            });
+            if (getRepo.is_template == true) {
+                return true;
+            } else {
+                return false;
+            };
         } else {
             return false;
         };
@@ -34,11 +42,11 @@ async function checkUsersRepos() {
 };
 
 async function main() {
-    const result = await checkUsersRepos();
+    const result = await checkTemplateRepos();
     setOutput("result", result);
 };
 
 /*
 Test locally:
-GHA_TOKEN=<token> REPO_OWNER=dr3dr3 REPO_NAME=template-slidev node .github/actions-scripts/repo-check-exists.mjs
+GHA_TOKEN=<token> REPO_OWNER=dr3dr3 REPO_NAME=template-slidev node .github/actions-scripts/repo-template-exists.mjs
 */

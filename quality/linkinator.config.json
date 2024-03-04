@@ -5,7 +5,7 @@
     "skip": [],
     "format": "json",
     "verbosity": "info",
-    "timeout": 0,
+    "timeout": 60000,
     "markdown": true,
     "directoryListing": false,
     "retry": true,

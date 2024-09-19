@@ -34,6 +34,6 @@ jobs:
 
       - name: Read config
         run: |
-          PROJECT_ID=$(yq '.instances[] | select(.type == "static-site-hosting" and .sourceRepo == "$SOURCE_REPO") | .id' $RESOURCE_CONFIG_FILE -r)
+          PROJECT_ID=$(sr=$SOURCE_REPO yq '.instances[] | select(.type == "static-site-hosting" and .sourceRepo == env(sr)) | .id' $RESOURCE_CONFIG_FILE -r)
           echo $PROJECT_ID
 

@@ -23,7 +23,7 @@ jobs:
     permissions:
       contents: none
     env:
-      SOURCE_REPO: ${{ format('{0}/{1}', github.event.client_payload.source-repo-owner, github.event.client_payload.source-repo-name ) }}
+      SOURCE_REPO: ${{ github.event.client_payload.source_repo }}
       RESOURCE_CONFIG_FILE: "resources/static-site-hosting/vercel.yml"
     steps:
 

@@ -27,6 +27,11 @@ jobs:
       RESOURCE_CONFIG_FILE: "resources/static-site-hosting/vercel.yml"
     steps:
 
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
       - name: Read config
         run: |
           echo ${{ fromJSON(github.event.client_payload) }}

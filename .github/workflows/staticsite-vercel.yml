@@ -22,8 +22,14 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: none
+    env:
+      SOURCE_REPO: ${{ format('{0}/{1}', github.event.client_payload.source-repo-owner, github.event.client_payload.source-repo-name ) }}
+      RESOURCE_CONFIG_FILE: "resources/static-site-hosting/vercel.yml"
     steps:
 
       - name: Read config
         run: |
-          echo ${{ github.event.client_payload }}
+          echo ${{ fromJSON(github.event.client_payload) }}
+          PROJECT_ID=$(yq '.instances[] | select(.type == "static-site-hosting" and .sourceRepo == "$SOURCE_REPO") | .id' $RESOURCE_CONFIG_FILE -r)
+          echo $PROJECT_ID
+

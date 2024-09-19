@@ -1,9 +1,7 @@
 instances:
   - id: PROJECT123
-    type: project
-    sourceRepo:
-      owner: drdr3
-      name: lrndo-docusaurus
+    type: static-site-hosting
+    sourceRepo: dr3dr3/lrndo-docusaurus
     dns-sub-domain:
       domain: lrndo.com
       subDomainPrefix: docs

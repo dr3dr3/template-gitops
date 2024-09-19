@@ -1,0 +1,10 @@
+instances:
+  - id: PROJECT123
+    type: project
+    sourceRepo:
+      owner: drdr3
+      name: lrndo-docusaurus
+    dns-sub-domain:
+      domain: lrndo.com
+      subDomainPrefix: docs
+    dtCreated: 2021-09-01T00:00:00Z

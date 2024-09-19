@@ -12,7 +12,7 @@ jobs:
 
   ifttt:
     name: IFTTT
-    uses: dr3dr3/template-pipeline/.github/workflows/ifttt-call-webhook.yml@main
+    uses: dr3dr3/core-pipeline/.github/workflows/ifttt-call-webhook.yml@main
     with:  
       phase: ${{ github.event.client_payload.phase }}
       outcome: ${{ github.event.client_payload.outcome }}

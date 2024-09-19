@@ -1,0 +1,29 @@
+name: STATICSITE-VERCEL
+run-name: Event handler for 'staticsite-vercel' ( Triggered by ${{ github.event_name }} and run by ${{ github.actor }} )
+
+on:
+  repository_dispatch:
+    types: [staticsite-vercel]
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: none
+
+# Allow one concurrent deployment
+concurrency:
+  group: 'deployment-vercel'
+  cancel-in-progress: false
+
+jobs:
+
+  get-config:
+    name: Get config
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    permissions:
+      contents: none
+    steps:
+
+      - name: Read config
+        run: |
+          echo ${{ github.event.client_payload }}

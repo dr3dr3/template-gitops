@@ -34,7 +34,6 @@ jobs:
 
       - name: Read config
         run: |
-          echo ${{ fromJSON(github.event.client_payload) }}
           PROJECT_ID=$(yq '.instances[] | select(.type == "static-site-hosting" and .sourceRepo == "$SOURCE_REPO") | .id' $RESOURCE_CONFIG_FILE -r)
           echo $PROJECT_ID
 
